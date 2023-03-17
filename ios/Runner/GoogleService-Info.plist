@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>428886003775-pmmcu22gcvt4opog4jrb4gcn1o2nheha.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.428886003775-pmmcu22gcvt4opog4jrb4gcn1o2nheha</string>
+	<key>API_KEY</key>
+	<string>AIzaSyDVL2Ny1_XfOkGa9qDGzRalcZA1CY5jNkw</string>
+	<key>GCM_SENDER_ID</key>
+	<string>428886003775</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.example.littleImmune</string>
+	<key>PROJECT_ID</key>
+	<string>littleimmune</string>
+	<key>STORAGE_BUCKET</key>
+	<string>littleimmune.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:428886003775:ios:2a9854bdcf9959bc85288a</string>
+</dict>
+</plist>

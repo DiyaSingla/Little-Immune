@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "428886003775",
+    "project_id": "littleimmune",
+    "storage_bucket": "littleimmune.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:428886003775:android:dc45a2fdb2125c9385288a",
+        "android_client_info": {
+          "package_name": "com.example.little_immune"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "428886003775-epded6fas76ak86e169pu85dstkhvbci.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyACDy3CNA7reM5PhN_zXNobu68yzIrmMes"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "428886003775-epded6fas76ak86e169pu85dstkhvbci.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "428886003775-pmmcu22gcvt4opog4jrb4gcn1o2nheha.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.littleImmune"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
