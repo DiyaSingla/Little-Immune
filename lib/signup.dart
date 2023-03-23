@@ -16,7 +16,7 @@ class _SignUpState extends State<SignUp> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
-          decoration: BoxDecoration(
+          decoration: const BoxDecoration(
               gradient: LinearGradient(colors: [
             Colors.red,
             Color.fromARGB(255, 250, 97, 148),
@@ -28,17 +28,17 @@ class _SignUpState extends State<SignUp> {
             child: Column(
               children: <Widget>[
                 logoWidget("images/logo.jpg"),
-                SizedBox(
+                const SizedBox(
                   height: 20,
                 ),
                 reusableTextField("Enter Username", Icons.person_outline, false,
                     _emailTextController),
-                SizedBox(
+                const SizedBox(
                   height: 20,
                 ),
                 reusableTextField("Enter Password", Icons.lock_outline, true,
                     _passwordTextController),
-                SizedBox(
+                const SizedBox(
                   height: 20,
                 ),
                 signInSignUpButton(context, false, () {
