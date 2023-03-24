@@ -1,15 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
-import '../util/appLayout.dart';
+import 'package:little_immune/util/appLayout.dart';
 
-class VaccineScreen extends StatelessWidget {
-  const VaccineScreen({Key? key}) : super(key: key);
+class Vaccine extends StatelessWidget {
+  const Vaccine({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     final size = AppLayout.getSize(context);
     return SizedBox(
-        width: size.width * 0.3,
+        width: size.width * 0.6,
         height: 200,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -20,7 +19,7 @@ class VaccineScreen extends StatelessWidget {
                 children: [
                   Expanded(
                     child: Container(
-                      padding: EdgeInsets.all(20),
+                      padding: EdgeInsets.all(50),
                       width: 180,
                       height: 180,
                       decoration: BoxDecoration(

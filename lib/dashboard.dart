@@ -1,16 +1,49 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:little_immune/Screen/home.dart';
 import 'package:little_immune/Screen/vaccine.dart';
 import 'package:little_immune/signin.dart';
-
+import 'package:little_immune/util/apointment.dart';
+import 'package:little_immune/util/due_vaccine_list.dart';
+import 'package:little_immune/util/faq.dart';
+import 'package:little_immune/util/vaccine_taken_list.dart';
 import 'Screen/childAdded.dart';
 
-class Dashboard extends StatelessWidget {
+class Dashboard extends StatefulWidget {
+  @override
+  State<Dashboard> createState() => _dashboardState();
+}
+
+class _dashboardState extends State<Dashboard> {
+  void _onItemTapped(int index) {
+    setState(() {
+      _selectedIndex = index;
+    });
+    if (index == 1) {
+      Navigator.pushReplacement(
+          context, MaterialPageRoute(builder: (context) => DueVaccineList()));
+    }
+    if (index == 2) {
+      Navigator.pushReplacement(
+          context, MaterialPageRoute(builder: (context) => Appointment()));
+    }
+  }
+
+  int _selectedIndex = 0;
+  static final List<Widget> _widgetOptions = <Widget>[
+    Scaffold(
+      body: Home(),
+    ),
+  ];
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
+        body: Center(
+          child: _widgetOptions.elementAt(_selectedIndex),
+        ),
         appBar: AppBar(
           backgroundColor: Color.fromARGB(255, 250, 97, 148),
           title: const Text('Little Immune'),
@@ -23,7 +56,7 @@ class Dashboard extends StatelessWidget {
             IconButton(
                 padding: const EdgeInsets.symmetric(horizontal: 20),
                 onPressed: () {},
-                icon: Icon(Icons.settings))
+                icon: Icon(Icons.logout))
           ],
         ),
         drawer: Drawer(
@@ -31,14 +64,14 @@ class Dashboard extends StatelessWidget {
             padding: EdgeInsets.zero,
             children: <Widget>[
               DrawerHeader(
-                decoration: BoxDecoration(
+                decoration: const BoxDecoration(
                     //color: Colors.blue,
                     gradient: LinearGradient(colors: [
                   Colors.red,
                   Color.fromARGB(255, 250, 97, 148),
                   Color.fromARGB(255, 249, 147, 181)
                 ], begin: Alignment.topCenter, end: Alignment.bottomCenter)),
-                child: Column(children: <Widget>[
+                child: Column(children: const <Widget>[
                   SizedBox(height: 70),
                   CircleAvatar(
                     child: Icon(
@@ -93,17 +126,20 @@ class Dashboard extends StatelessWidget {
                   ),
                   Divider(),
                   ListTile(
-                    leading: Icon(Icons.settings),
-                    title: Text('Settings'),
+                    leading: Icon(Icons.info),
+                    title: Text('FAQ'),
                     onTap: () {
-                      Navigator.pop(context);
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => FrequentlyAsked()));
                       // Navigate to settings screen
                     },
                   ),
                   Divider(),
                   ListTile(
-                    leading: Icon(Icons.info),
-                    title: Text('About'),
+                    leading: Icon(Icons.logout),
+                    title: Text('Log Out'),
                     onTap: () {
                       Navigator.pop(context);
                       // Navigate to about screen
@@ -114,90 +150,6 @@ class Dashboard extends StatelessWidget {
             ],
           ),
         ),
-        body: ListView(
-          children: [
-            Container(
-              padding: const EdgeInsets.only(top: 20, left: 180, right: 180),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: const [
-                  Text(
-                    'Vaccine List',
-                    selectionColor: Colors.black,
-                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
-                  ),
-                  Text(
-                    'view all',
-                    style: TextStyle(
-                        color: Color.fromARGB(255, 172, 65, 205), fontSize: 15),
-                  ),
-                ],
-              ),
-            ),
-            const SizedBox(
-              height: 10,
-              width: 40,
-            ),
-            Scrollbar(
-              child: Expanded(
-                child: SingleChildScrollView(
-                    scrollDirection: Axis.horizontal,
-                    padding: EdgeInsets.only(top: 10, left: 40),
-                    child: Row(
-                      children: const [
-                        VaccineScreen(),
-                        SizedBox(
-                          width: 10,
-                          height: 10,
-                        ),
-                        VaccineScreen(),
-                        SizedBox(
-                          width: 10,
-                          height: 10,
-                        ),
-                        VaccineScreen(),
-                        SizedBox(
-                          width: 10,
-                          height: 10,
-                        ),
-                        VaccineScreen(),
-                        SizedBox(
-                          width: 10,
-                          height: 10,
-                        ),
-                      ],
-                    )),
-              ),
-            ),
-            const SizedBox(
-              height: 10,
-              width: 40,
-            ),
-            Container(
-              padding: const EdgeInsets.only(top: 10, left: 180, right: 180),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text(
-                    'Child Added',
-                    selectionColor: Colors.black,
-                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
-                  ),
-                  Text(
-                    'Gender',
-                    style: TextStyle(
-                        color: Color.fromARGB(255, 172, 65, 205), fontSize: 15),
-                  ),
-                ],
-              ),
-            ),
-            const SizedBox(
-              height: 20,
-              width: 40,
-            ),
-            ChildAdded(),
-          ],
-        ),
         bottomNavigationBar: BottomNavigationBar(
           items: const [
             BottomNavigationBarItem(
@@ -205,10 +157,15 @@ class Dashboard extends StatelessWidget {
                 icon: Icon(Icons.home),
                 backgroundColor: Colors.pink),
             BottomNavigationBarItem(
-                label: 'Due Vaccine', icon: Icon(Icons.vaccines)),
+              label: 'Due Vaccine',
+              icon: Icon(Icons.vaccines),
+            ),
             BottomNavigationBarItem(
-                label: 'GPS', icon: Icon(Icons.location_pin)),
+                label: 'Appointment', icon: Icon(Icons.location_pin)),
           ],
+          currentIndex: _selectedIndex,
+          selectedItemColor: Color.fromARGB(255, 212, 57, 145),
+          onTap: _onItemTapped,
         ),
       ),
     );
