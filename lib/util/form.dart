@@ -1,6 +1,8 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:date_field/date_field.dart';
 import 'package:flutter/services.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 // Define a custom Form widget.
 class MyCustomForm extends StatefulWidget {
@@ -15,14 +17,17 @@ class MyCustomForm extends StatefulWidget {
 // Define a corresponding State class.
 // This class holds data related to the form.
 class MyCustomFormState extends State<MyCustomForm> {
+  final controllerName = TextEditingController();
+  final controllerGender = TextEditingController();
+  final controllerDob = TextEditingController();
   // Create a global key that uniquely identifies the Form widget
   // and allows validation of the form.
   //
   // Note: This is a `GlobalKey<FormState>`,
   // not a GlobalKey<MyCustomFormState>.
   final _formKey = GlobalKey<FormState>();
-  String? _selectedOption;
-  DateTime? _selectedDate;
+  String _selectedOption = "";
+  DateTime _selectedDate = DateTime.now();
 
   @override
   Widget build(BuildContext context) {
@@ -46,6 +51,7 @@ class MyCustomFormState extends State<MyCustomForm> {
                     height: 16,
                   ),
                   TextFormField(
+                    controller: controllerName,
                     // The validator receives the text that the user has entered.
                     decoration: InputDecoration(
                       labelText: "Child Name",
@@ -100,7 +106,7 @@ class MyCustomFormState extends State<MyCustomForm> {
                         groupValue: _selectedOption,
                         onChanged: (value) {
                           setState(() {
-                            _selectedOption = value;
+                            _selectedOption = value!;
                           });
                         },
                       ),
@@ -115,7 +121,7 @@ class MyCustomFormState extends State<MyCustomForm> {
                         groupValue: _selectedOption,
                         onChanged: (value) {
                           setState(() {
-                            _selectedOption = value;
+                            _selectedOption = value!;
                           });
                         },
                       ),
@@ -126,10 +132,18 @@ class MyCustomFormState extends State<MyCustomForm> {
                     onPressed: () {
                       // Validate returns true if the form is valid, or false otherwise.
                       if (_formKey.currentState!.validate()) {
+                        final user = User(
+                            name: controllerName.text,
+                            gender: (_selectedOption == 'option1')
+                                ? 'male'
+                                : 'female',
+                            dob: _selectedDate);
+                        createUser(user);
+                        Navigator.pop(context);
                         // If the form is valid, display a snackbar. In the real world,
                         // you'd often call a server or save the information in a database.
                         ScaffoldMessenger.of(context).showSnackBar(
-                          const SnackBar(content: Text('Processing Data')),
+                          const SnackBar(content: Text('Child Added')),
                         );
                       }
                     },
@@ -160,4 +174,32 @@ class MyCustomFormState extends State<MyCustomForm> {
           ),
         ));
   }
+
+  Future createUser(User user) async {
+    final docUser = FirebaseFirestore.instance.collection('Child').doc();
+    user.id = docUser.id;
+    final json = user.toJson();
+    await docUser.set(json);
+  }
+}
+
+class User {
+  String id;
+  final String name;
+  final String gender;
+  final DateTime dob;
+
+  User({
+    this.id = '',
+    required this.name,
+    required this.gender,
+    required this.dob,
+  });
+
+  Map<String, dynamic> toJson() => {
+        'id': id,
+        'name': name,
+        'gender': gender,
+        'dob': dob,
+      };
 }
