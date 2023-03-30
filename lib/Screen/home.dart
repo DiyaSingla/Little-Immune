@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:little_immune/Screen/childAdded.dart';
 import 'package:little_immune/Screen/vaccine.dart';
 import 'package:little_immune/util/vaccine_taken_list.dart';
+import 'package:little_immune/vaccine_search.dart';
 
 class Home extends StatelessWidget {
   @override
@@ -21,11 +22,13 @@ class Home extends StatelessWidget {
                 ),
                 MaterialButton(
                   onPressed: () {
-                    Navigator.push(context,
-                        MaterialPageRoute(builder: (context) => VaccineList()));
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => FirebaseSearchScreen()));
                   },
                   child: Text(
-                    'view all',
+                    'View all',
                     style: TextStyle(
                         color: Color.fromARGB(255, 172, 65, 205), fontSize: 15),
                   ),
@@ -43,19 +46,19 @@ class Home extends StatelessWidget {
               padding: EdgeInsets.only(top: 10, left: 40),
               child: Row(
                 children: const [
-                  VaccineScreen(),
+                  Vaccine(),
                   SizedBox(
                     width: 10,
                   ),
-                  VaccineScreen(),
+                  Vaccine(),
                   SizedBox(
                     width: 10,
                   ),
-                  VaccineScreen(),
+                  Vaccine(),
                   SizedBox(
                     width: 10,
                   ),
-                  VaccineScreen(),
+                  Vaccine(),
                   SizedBox(
                     width: 10,
                   ),

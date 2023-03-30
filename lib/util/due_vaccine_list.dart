@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:little_immune/Screen/vaccine.dart';
 import 'package:little_immune/Screen/vaccine_list_screen.dart';
 import 'package:little_immune/dashboard.dart';
+
+import '../Screen/vaccine.dart';
 
 class DueVaccineList extends StatelessWidget {
   const DueVaccineList({Key? key}) : super(key: key);

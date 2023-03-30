@@ -1,18 +1,21 @@
 import 'package:flutter/material.dart';
 import 'dart:async';
-
 import 'package:little_immune/signin.dart';
 
-class MyLogoPage extends StatefulWidget {
+class MyHomePage extends StatefulWidget {
+  const MyHomePage({super.key, required this.title});
+
+  final String title;
+
   @override
-  _MyLogoPageState createState() => _MyLogoPageState();
+  State<MyHomePage> createState() => _MyHomePageState();
 }
 
-class _MyLogoPageState extends State<MyLogoPage> {
+class _MyHomePageState extends State<MyHomePage> {
   @override
   void initState() {
     Timer(
-      Duration(seconds: 5),
+      Duration(seconds: 3),
       () {
         Navigator.pushReplacement(
             context, MaterialPageRoute(builder: (context) => SignIn()));
@@ -28,12 +31,12 @@ class _MyLogoPageState extends State<MyLogoPage> {
           child: Container(
             decoration: const BoxDecoration(
               gradient: LinearGradient(colors: [
-                Color.fromARGB(255, 2, 52, 94),
-                Color.fromARGB(255, 11, 95, 163)
+                Color.fromARGB(255, 2, 29, 52),
+                Color.fromARGB(255, 2, 58, 103)
               ]),
               image: DecorationImage(
                 image: AssetImage('images/logo.jpg'),
-                // fit: BoxFit.cover,
+                fit: BoxFit.cover,
               ),
             ),
           ),

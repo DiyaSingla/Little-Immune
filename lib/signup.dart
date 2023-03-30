@@ -2,6 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:little_immune/dashboard.dart';
 import 'package:little_immune/reusable_widget.dart';
+import 'package:little_immune/signin.dart';
 
 class SignUp extends StatefulWidget {
   const SignUp({Key? key}) : super(key: key);
@@ -18,7 +19,7 @@ class _SignUpState extends State<SignUp> {
       body: Container(
           decoration: const BoxDecoration(
               gradient: LinearGradient(colors: [
-            Colors.red,
+            Color.fromARGB(255, 247, 17, 136),
             Color.fromARGB(255, 250, 97, 148),
             Color.fromARGB(255, 249, 147, 181)
           ], begin: Alignment.topCenter, end: Alignment.bottomCenter)),
@@ -41,22 +42,61 @@ class _SignUpState extends State<SignUp> {
                 const SizedBox(
                   height: 20,
                 ),
-                signInSignUpButton(context, false, () {
-                  FirebaseAuth.instance
-                      .createUserWithEmailAndPassword(
-                          email: _emailTextController.text,
-                          password: _passwordTextController.text)
-                      .then((value) {
-                    print("Created New Account");
-                    Navigator.push(context,
-                        MaterialPageRoute(builder: (context) => Dashboard()));
-                  }).onError((error, stackTrace) {
-                    print("Error ${error.toString()}");
-                  });
+                signInSignUpButton(context, false, () async {
+                  Future<bool> userExists = doesUserExist(
+                      _emailTextController.text, _passwordTextController.text);
+                  if (await userExists) {
+                    print("user exists");
+                    Navigator.pushReplacement(context,
+                        MaterialPageRoute(builder: (context) => SignIn()));
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      const SnackBar(
+                          content: Text('This email is already registered')),
+                    );
+                  } else {
+                    FirebaseAuth.instance
+                        .createUserWithEmailAndPassword(
+                            email: _emailTextController.text,
+                            password: _passwordTextController.text)
+                        .then((value) {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(content: Text("New Account Created")),
+                      );
+                      print("Created New Account");
+                      Navigator.push(context,
+                          MaterialPageRoute(builder: (context) => Dashboard()));
+                    }).onError((error, stackTrace) {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(
+                            content: Text(
+                                "Error ${error.toString().split(']')[1]}")),
+                      );
+                      print("Error ${error.toString()}");
+                    });
+                  }
                 }),
               ],
             ),
           ))),
     );
+  }
+
+  Future<bool> doesUserExist(String email, String password) async {
+    try {
+      UserCredential userCredential =
+          await FirebaseAuth.instance.signInWithEmailAndPassword(
+        email: email,
+        password:
+            password, // This can be empty as we're only checking if user exists
+      );
+      // If signInWithEmailAndPassword succeeds, user already exists
+      return true;
+    } on FirebaseAuthException catch (e) {
+      // If signInWithEmailAndPassword fails with user-not-found error, user doesn't exist
+      if (e.code == 'user-not-found') {
+        return false;
+      }
+    }
+    return true;
   }
 }

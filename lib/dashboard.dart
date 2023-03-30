@@ -1,14 +1,10 @@
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:little_immune/Screen/home.dart';
-import 'package:little_immune/Screen/vaccine.dart';
 import 'package:little_immune/signin.dart';
 import 'package:little_immune/util/apointment.dart';
 import 'package:little_immune/util/due_vaccine_list.dart';
 import 'package:little_immune/util/faq.dart';
-import 'package:little_immune/util/vaccine_taken_list.dart';
-import 'Screen/childAdded.dart';
 
 class Dashboard extends StatefulWidget {
   @override
@@ -55,7 +51,13 @@ class _dashboardState extends State<Dashboard> {
             ),
             IconButton(
                 padding: const EdgeInsets.symmetric(horizontal: 20),
-                onPressed: () {},
+                onPressed: () {
+                  FirebaseAuth.instance.signOut().then((value) {
+                    print("Signed Out");
+                    Navigator.pushReplacement(context,
+                        MaterialPageRoute(builder: (context) => SignIn()));
+                  });
+                },
                 icon: Icon(Icons.logout))
           ],
         ),
@@ -141,8 +143,11 @@ class _dashboardState extends State<Dashboard> {
                     leading: Icon(Icons.logout),
                     title: Text('Log Out'),
                     onTap: () {
-                      Navigator.pop(context);
-                      // Navigate to about screen
+                      FirebaseAuth.instance.signOut().then((value) {
+                        print("Signed Out");
+                        Navigator.pushReplacement(context,
+                            MaterialPageRoute(builder: (context) => SignIn()));
+                      });
                     },
                   ),
                 ],

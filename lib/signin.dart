@@ -20,7 +20,7 @@ class _SignInState extends State<SignIn> {
       body: Container(
         decoration: const BoxDecoration(
             gradient: LinearGradient(colors: [
-          Colors.red,
+          Color.fromARGB(255, 247, 17, 136),
           Color.fromARGB(255, 250, 97, 148),
           Color.fromARGB(255, 249, 147, 181)
         ], begin: Alignment.topCenter, end: Alignment.bottomCenter)),
@@ -53,6 +53,11 @@ class _SignInState extends State<SignIn> {
                   Navigator.push(context,
                       MaterialPageRoute(builder: (context) => Dashboard()));
                 }).onError((error, stackTrace) {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    SnackBar(
+                        content:
+                            Text("Error ${error.toString().split(']')[1]}")),
+                  );
                   print("Error ${error.toString()}");
                 });
               }),
@@ -68,7 +73,7 @@ class _SignInState extends State<SignIn> {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        const Text("Don;t have an account?",
+        const Text("Don't have an account?",
             style: TextStyle(color: Colors.white70)),
         GestureDetector(
           onTap: () {

@@ -1,7 +1,6 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:little_immune/dashboard.dart';
-import 'package:little_immune/signin.dart';
+import 'package:little_immune/logo_page.dart';
 import 'firebase_options.dart';
 
 void main() async {
@@ -20,7 +19,9 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.blue,
       ),
       debugShowCheckedModeBanner: false,
-      home: const SignIn(),
+      home: const MyHomePage(
+        title: "Little Immune",
+      ),
     );
   }
 }

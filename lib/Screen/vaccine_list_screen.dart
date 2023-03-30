@@ -1,12 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:little_immune/util/appLayout.dart';
 
-class Vaccine extends StatelessWidget {
-  const Vaccine({Key? key}) : super(key: key);
+class VaccineList extends StatelessWidget {
+  const VaccineList({Key? key, required this.record, required this.index})
+      : super(key: key);
+  final List<dynamic> record;
+  final int index;
 
   @override
   Widget build(BuildContext context) {
     final size = AppLayout.getSize(context);
+    String name = record[index]['name'];
+    String from = record[index]['from'];
+    String to = record[index]['to'];
+    String dose = record[index]['dose'];
+    List<dynamic> dis = record[index]['disease'];
+
     return SizedBox(
         width: size.width * 0.6,
         height: 200,
@@ -34,20 +43,25 @@ class Vaccine extends StatelessWidget {
                   Expanded(
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.center,
-                      children: const [
-                        Padding(padding: EdgeInsets.only(top: 40)),
+                      children: [
+                        Padding(padding: EdgeInsets.only(top: 30)),
                         Text(
-                          'Name Of Medicine',
+                          'Name Of Vaccine : ' + '$name',
                           textAlign: TextAlign.right,
                         ),
-                        Padding(padding: EdgeInsets.only(top: 40)),
+                        Padding(padding: EdgeInsets.only(top: 30)),
                         Text(
-                          'Age :',
+                          'Vaccination Period : ' + period(from, to),
                           textAlign: TextAlign.right,
                         ),
-                        Padding(padding: EdgeInsets.only(top: 40)),
+                        Padding(padding: EdgeInsets.only(top: 30)),
                         Text(
-                          'Dose : ',
+                          'Disease Prevented : ' + '$dis',
+                          textAlign: TextAlign.right,
+                        ),
+                        Padding(padding: EdgeInsets.only(top: 30)),
+                        Text(
+                          'Dose : ' + '$dose',
                           textAlign: TextAlign.right,
                         ),
                       ],
@@ -58,5 +72,13 @@ class Vaccine extends StatelessWidget {
             )
           ],
         ));
+  }
+
+  String period(String from, String to) {
+    if (from == to) {
+      return from;
+    } else {
+      return from + "to" + to;
+    }
   }
 }
