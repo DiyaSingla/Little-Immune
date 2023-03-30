@@ -41,6 +41,7 @@ dependencies:
   firebase_auth: ^4.2.10
   date_field: ^3.0.2
   cloud_firestore: ^4.4.5
+  table_calendar: ^3.0.8
 
 dev_dependencies:
   flutter_test:
@@ -68,8 +69,9 @@ flutter:
   assets:
     - images/logo.jpg
     - images/child_vaccine.jpg
-   
-  #   - images/a_dot_ham.jpeg
+    - images/formBaby.png
+  # - images/a_dot_ham.jpeg
+
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware

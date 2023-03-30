@@ -33,20 +33,23 @@ class MyCustomFormState extends State<MyCustomForm> {
   Widget build(BuildContext context) {
     // Build a Form widget using the _formKey created above.
     return MaterialApp(
-        title: 'The Child Fill In Form ',
+        title: 'Add Child Details',
         debugShowCheckedModeBanner: false,
         home: Center(
           child: Scaffold(
             appBar: AppBar(
                 backgroundColor: Color.fromARGB(255, 250, 97, 148),
-                title: Text('Child Form'),
+                title: Text('Add Child Details'),
                 leading: IconButton(
                     onPressed: () => Navigator.pop(context),
                     icon: Icon(Icons.arrow_back))),
-            body: Form(
-              key: _formKey,
+             body: Padding(
+               padding: const EdgeInsets.all(16.0),        
+               child: Form(
+               key: _formKey,
               child: Column(
-                children: <Widget>[
+                children: [
+                  Image.asset("images/formBaby.png",height: 150),
                   const SizedBox(
                     height: 16,
                   ),
@@ -54,11 +57,12 @@ class MyCustomFormState extends State<MyCustomForm> {
                     controller: controllerName,
                     // The validator receives the text that the user has entered.
                     decoration: InputDecoration(
+                      prefixIcon: Icon(Icons.person_2_outlined),
                       labelText: "Child Name",
                       filled: true,
-                      fillColor: Color.fromARGB(255, 49, 197, 192),
+                      fillColor: Color.fromARGB(255, 220, 234, 233),
                       labelStyle:
-                          TextStyle(color: Color.fromARGB(255, 37, 236, 226)),
+                          TextStyle(color: Color.fromARGB(255, 26, 28, 28)),
                       border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(10.0),
                       ),
@@ -75,11 +79,12 @@ class MyCustomFormState extends State<MyCustomForm> {
                   ),
                   DateTimeField(
                     decoration: InputDecoration(
-                      labelText: "Select a DOB",
+                      prefixIcon: Icon(Icons.calendar_month_outlined),
+                      labelText: "Select Date Of Birth",
                       labelStyle:
-                          TextStyle(color: Color.fromARGB(255, 37, 209, 236)),
+                          TextStyle(color: Color.fromARGB(255, 26, 28, 28)),
                       filled: true,
-                      fillColor: Color.fromARGB(255, 133, 227, 242),
+                      fillColor: Color.fromARGB(255, 220, 234, 233),
                       border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(10.0),
                       ),
@@ -96,9 +101,12 @@ class MyCustomFormState extends State<MyCustomForm> {
                   ),
                   const Padding(
                     padding: EdgeInsets.only(left: 20),
-                    child: Text('Select your Gender'),
+                    child: Text('Select Gender'),
                   ),
-                  Row(
+                 Row(
+                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                 children :[
+                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Radio<String>(
@@ -111,6 +119,7 @@ class MyCustomFormState extends State<MyCustomForm> {
                         },
                       ),
                       Text('Male'),
+                      Icon(Icons.male_outlined,color: Colors.blue,),
                     ],
                   ),
                   Row(
@@ -126,8 +135,11 @@ class MyCustomFormState extends State<MyCustomForm> {
                         },
                       ),
                       Text('Female'),
+                      Icon(Icons.female_outlined,color: Colors.pink,),
                     ],
                   ),
+                 ]
+              ),
                   ElevatedButton(
                     onPressed: () {
                       // Validate returns true if the form is valid, or false otherwise.
@@ -152,27 +164,10 @@ class MyCustomFormState extends State<MyCustomForm> {
                 ],
               ),
             ),
-            bottomNavigationBar: BottomAppBar(
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  IconButton(
-                    icon: Icon(Icons.home),
-                    onPressed: () {},
-                  ),
-                  IconButton(
-                    icon: Icon(Icons.settings),
-                    onPressed: () {},
-                  ),
-                  IconButton(
-                    icon: Icon(Icons.settings),
-                    onPressed: () {},
-                  ),
-                ],
-              ),
-            ),
+             ),
           ),
-        ));
+        )
+    );
   }
 
   Future createUser(User user) async {

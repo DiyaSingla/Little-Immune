@@ -8,6 +8,7 @@ import 'package:little_immune/util/faq.dart';
 import 'package:little_immune/util/vaccine_taken_list.dart';
 import 'package:little_immune/util/child_list.dart';
 import 'Screen/childAdded.dart';
+import 'package:little_immune/Screen/CalenderView.dart';
 
 class Dashboard extends StatefulWidget {
   @override
@@ -107,7 +108,10 @@ class _dashboardState extends State<Dashboard> {
                     leading: Icon(Icons.calendar_month_outlined),
                     title: Text('Calender View'),
                     onTap: () {
-                      Navigator.pop(context);
+                    Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => MyCalendarWidget()));
                       // Navigate to home screen
                     },
                   ),
