@@ -2,6 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:little_immune/dashboard.dart';
 import 'package:little_immune/signup.dart';
+import 'package:little_immune/util/appLayout.dart';
 
 import 'reusable_widget.dart';
 
@@ -16,6 +17,7 @@ class _SignInState extends State<SignIn> {
   TextEditingController _emailTextController = TextEditingController();
 
   Widget build(BuildContext context) {
+    final size = AppLayout.getSize(context);
     return Scaffold(
       body: Container(
         decoration: const BoxDecoration(
@@ -26,13 +28,13 @@ class _SignInState extends State<SignIn> {
         ], begin: Alignment.topCenter, end: Alignment.bottomCenter)),
         child: SingleChildScrollView(
             child: Padding(
-          padding: EdgeInsets.fromLTRB(
-              20, MediaQuery.of(context).size.height * 0.2, 20, 0),
+          padding: EdgeInsets.only(left: 20, top: size.height * 0.1, right: 20),
           child: Column(
             children: <Widget>[
-              logoWidget("images/logo.jpg"),
+              Image.asset("images/Liitle_IMMUNE.png"),
               const SizedBox(
                 height: 20,
+                width: 20,
               ),
               reusableTextField("Enter Username", Icons.person_outline, false,
                   _emailTextController),

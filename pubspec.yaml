@@ -69,9 +69,14 @@ flutter:
   assets:
     - images/logo.jpg
     - images/child_vaccine.jpg
+<<<<<<< Updated upstream
     - images/formBaby.png
   # - images/a_dot_ham.jpeg
 
+=======
+    - images/Liitle_IMMUNE.png
+  #   - images/a_dot_ham.jpeg
+>>>>>>> Stashed changes
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware

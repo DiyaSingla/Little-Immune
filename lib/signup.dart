@@ -2,7 +2,11 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:little_immune/dashboard.dart';
 import 'package:little_immune/reusable_widget.dart';
+<<<<<<< Updated upstream
 import 'package:little_immune/signin.dart';
+=======
+import 'package:little_immune/util/appLayout.dart';
+>>>>>>> Stashed changes
 
 class SignUp extends StatefulWidget {
   const SignUp({Key? key}) : super(key: key);
@@ -15,6 +19,7 @@ class _SignUpState extends State<SignUp> {
   TextEditingController _emailTextController = TextEditingController();
 
   Widget build(BuildContext context) {
+    final size = AppLayout.getSize(context);
     return Scaffold(
       body: Container(
           decoration: const BoxDecoration(
@@ -25,12 +30,14 @@ class _SignUpState extends State<SignUp> {
           ], begin: Alignment.topCenter, end: Alignment.bottomCenter)),
           child: SingleChildScrollView(
               child: Padding(
-            padding: EdgeInsets.fromLTRB(20, 120, 20, 0),
+            padding:
+                EdgeInsets.only(left: 20, top: size.height * 0.1, right: 20),
             child: Column(
               children: <Widget>[
-                logoWidget("images/logo.jpg"),
+                logoWidget("images/Liitle_IMMUNE.png"),
                 const SizedBox(
                   height: 20,
+                  width: 20,
                 ),
                 reusableTextField("Enter Username", Icons.person_outline, false,
                     _emailTextController),
