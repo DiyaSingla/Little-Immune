@@ -2,11 +2,8 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:little_immune/dashboard.dart';
 import 'package:little_immune/reusable_widget.dart';
-<<<<<<< Updated upstream
 import 'package:little_immune/signin.dart';
-=======
 import 'package:little_immune/util/appLayout.dart';
->>>>>>> Stashed changes
 
 class SignUp extends StatefulWidget {
   const SignUp({Key? key}) : super(key: key);
