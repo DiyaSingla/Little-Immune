@@ -22,22 +22,20 @@ Front-End : Flutter
 Back-end : Firestore and Firebase 
 Github: https://github.com/DiyaSingla/Little-Immune
 ScreenShots :
-
-Home page 
- 
+![Screenshot 2023-04-01 233551](https://user-images.githubusercontent.com/104776510/229307624-b3861649-e634-4624-835a-c190bde52933.png)
 SignIn/SignUp page
-
+![Screenshot 2023-04-01 234528](https://user-images.githubusercontent.com/104776510/229307706-347cb961-b380-4a59-8210-df790421a4b6.png)
 Dashboard
-
+![Screenshot 2023-04-01 234604](https://user-images.githubusercontent.com/104776510/229307795-180f6607-8daf-4c13-9a62-f779ca5d5844.png)
+Child Registration/ Add Child Page
+![Screenshot 2023-04-01 234644](https://user-images.githubusercontent.com/104776510/229307800-838c402f-5ce6-49b8-bd7a-ba8691b18dc1.png)
+List of all Children of a user/parent
+![Screenshot 2023-04-01 234654](https://user-images.githubusercontent.com/104776510/229307811-50b303ed-02f8-4145-82b9-43f5301877d2.png)
+List of all Children of a user/parent
+![Screenshot 2023-04-01 234918](https://user-images.githubusercontent.com/104776510/229307874-a44a7533-3443-4390-af53-91dbd1bb2710.png)
 Side Bar
 
-Vaccine Search/Details Page
 
-Child Registration/ Add Child Page
-
-List of all Children of a user/parent
-
-Details/Vaccine schedule of a particular child page
 
 
 
