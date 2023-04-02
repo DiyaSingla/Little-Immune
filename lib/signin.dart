@@ -20,6 +20,8 @@ class _SignInState extends State<SignIn> {
     final size = AppLayout.getSize(context);
     return Scaffold(
       body: Container(
+        height: double.infinity,
+        width: double.infinity,
         decoration: const BoxDecoration(
             gradient: LinearGradient(colors: [
           Color.fromARGB(255, 247, 17, 136),

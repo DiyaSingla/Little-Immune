@@ -30,13 +30,10 @@ class _MyHomePageState extends State<MyHomePage> {
         Center(
           child: Container(
             decoration: const BoxDecoration(
-              gradient: LinearGradient(colors: [
-                Color.fromARGB(255, 2, 29, 52),
-                Color.fromARGB(255, 2, 58, 103)
-              ]),
+              gradient: LinearGradient(colors: [Colors.white, Colors.white10]),
               image: DecorationImage(
-                image: AssetImage('images/logo.jpg'),
-                fit: BoxFit.cover,
+                image: AssetImage('images/Liitle_IMMUNE.png'),
+                //fit: BoxFit.cover,
               ),
             ),
           ),

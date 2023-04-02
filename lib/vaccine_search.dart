@@ -12,6 +12,15 @@ class FirebaseSearchScreen extends StatefulWidget {
 class FirebaseSearchScreenState extends State<FirebaseSearchScreen> {
   List searchResult = [];
 
+  void getAllData() async {
+    final result =
+        await FirebaseFirestore.instance.collection('Vaccines').get();
+
+    setState(() {
+      searchResult = result.docs.map((e) => e.data()).toList();
+    });
+  }
+
   void searchFromFirebase(String query) async {
     final result = await FirebaseFirestore.instance
         .collection('Vaccines')
@@ -36,12 +45,16 @@ class FirebaseSearchScreenState extends State<FirebaseSearchScreen> {
           Padding(
             padding: const EdgeInsets.all(15.0),
             child: TextField(
-              decoration: InputDecoration(
+              decoration: const InputDecoration(
                 border: OutlineInputBorder(),
                 hintText: "Search Here",
               ),
               onChanged: (query) {
-                searchFromFirebase(query);
+                if (query.isEmpty == true) {
+                  getAllData();
+                } else {
+                  searchFromFirebase(query);
+                }
               },
             ),
           ),
