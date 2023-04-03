@@ -1,5 +1,3 @@
-import 'dart:math';
-
 import 'package:flutter/material.dart';
 import 'package:little_immune/util/appLayout.dart';
 
@@ -17,9 +15,6 @@ class VaccineList extends StatelessWidget {
     String to = record[index]['to'];
     String dose = record[index]['dose'];
     List<dynamic> dis = record[index]['diseases'];
-
-    Color randomColor =
-        Color((Random().nextDouble() * 0xFFFFFF).toInt() << 0).withOpacity(1.0);
 
     return SizedBox(
         width: size.width * 0.6,

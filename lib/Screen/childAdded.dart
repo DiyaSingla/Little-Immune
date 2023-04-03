@@ -1,10 +1,12 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:little_immune/util/child_list.dart';
 import 'package:little_immune/util/form.dart';
 import '../util/appLayout.dart';
 
 class ChildAdded extends StatelessWidget {
-  const ChildAdded({Key? key}) : super(key: key);
+  const ChildAdded({super.key, required this.email});
+  final String email;
 
   @override
   Widget build(BuildContext context) {
@@ -24,7 +26,7 @@ class ChildAdded extends StatelessWidget {
                     Container(
                       padding: EdgeInsets.only(left: 70),
                       height: 180,
-                      decoration: BoxDecoration(
+                      decoration: const BoxDecoration(
                         color: Color.fromARGB(255, 250, 97, 148),
                       ),
                     ),
@@ -38,7 +40,9 @@ class ChildAdded extends StatelessWidget {
                                 Navigator.push(
                                     context,
                                     MaterialPageRoute(
-                                        builder: (context) => MyCustomForm()));
+                                        builder: (context) => MyCustomForm(
+                                              email: email,
+                                            )));
                               },
                               child: Text(
                                 'Add Child',
@@ -52,7 +56,14 @@ class ChildAdded extends StatelessWidget {
                               top: 100,
                             ),
                             child: ElevatedButton(
-                                onPressed: () {},
+                                onPressed: () {
+                                  Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) => ChildListPage(
+                                                email: email,
+                                              )));
+                                },
                                 style: ElevatedButton.styleFrom(
                                     backgroundColor: Colors.blue),
                                 child: const Text(' View All')))

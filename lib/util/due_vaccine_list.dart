@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:little_immune/Screen/vaccine_list_screen.dart';
 import 'package:little_immune/dashboard.dart';
 
 import '../Screen/vaccine.dart';
 
 class DueVaccineList extends StatelessWidget {
-  const DueVaccineList({Key? key}) : super(key: key);
+  const DueVaccineList({super.key, required this.email});
+  final String email;
 
   @override
   Widget build(BuildContext context) {
@@ -21,8 +21,12 @@ class DueVaccineList extends StatelessWidget {
                   icon: Icon(Icons.settings))
             ],
             leading: IconButton(
-                onPressed: () => Navigator.pushReplacement(context,
-                    MaterialPageRoute(builder: (context) => Dashboard())),
+                onPressed: () => Navigator.pushReplacement(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => Dashboard(
+                              email: email,
+                            ))),
                 // Navigate to about screen
 
                 icon: Icon(Icons.arrow_back))),

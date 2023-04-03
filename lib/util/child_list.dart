@@ -1,25 +1,43 @@
-import 'dart:ui';
-
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:little_immune/dashboard.dart';
 
 class ChildListPage extends StatefulWidget {
+  const ChildListPage({super.key, required this.email});
+  final String email;
+
   @override
   _ChildListPageState createState() => _ChildListPageState();
 }
 
 class _ChildListPageState extends State<ChildListPage> {
-  final List<String> childNames = ['Alice', 'Bob', 'Charlie'];
+  List searchResult = [];
+
+  void searchChild(String query) async {
+    final result = await FirebaseFirestore.instance
+        .collection('Child')
+        .where('email', isEqualTo: query)
+        .get();
+
+    setState(() {
+      searchResult = result.docs.map((e) => e.data()).toList();
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
+    searchChild(widget.email);
     return Scaffold(
       appBar: AppBar(
         title: Text('Child List'),
         backgroundColor: Color.fromARGB(255, 238, 74, 128),
         leading: IconButton(
             onPressed: () => Navigator.pushReplacement(
-                context, MaterialPageRoute(builder: (context) => Dashboard())),
+                context,
+                MaterialPageRoute(
+                    builder: (context) => Dashboard(
+                          email: widget.email,
+                        ))),
             icon: Icon(Icons.arrow_back)),
         // flexibleSpace: Container(
         //   decoration: BoxDecoration(
@@ -40,31 +58,33 @@ class _ChildListPageState extends State<ChildListPage> {
               Colors.white
             ])),
         child: ListView.builder(
-          itemCount: childNames.length,
+          itemCount: searchResult.length,
           itemBuilder: (BuildContext context, int index) {
-            final childName = childNames[index];
+            String name = searchResult[index]['name'];
+            Timestamp dob = searchResult[index]['dob'];
+            String gender = searchResult[index]['gender'];
             return Card(
               child: ListTile(
                 leading: Icon(Icons.child_care),
-                title: Text(childName),
+                title: Text(name),
                 subtitle: Row(
                   children: [
                     Expanded(
                       child: Padding(
                         padding: const EdgeInsets.all(4.0),
-                        child: Text('Name'),
+                        child: Text(name),
                       ),
                     ),
                     Expanded(
                       child: Padding(
                         padding: const EdgeInsets.all(4.0),
-                        child: Text('Age'),
+                        child: Text(dob.toString()),
                       ),
                     ),
                     Expanded(
                       child: Padding(
                         padding: const EdgeInsets.all(4.0),
-                        child: Text('Gender'),
+                        child: Text(gender),
                       ),
                     ),
                   ],
@@ -74,8 +94,8 @@ class _ChildListPageState extends State<ChildListPage> {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (context) =>
-                          ChildVaccinationSchedulePage(childName: childName),
+                      builder: (context) => ChildVaccinationSchedulePage(
+                          list: searchResult, index: index),
                     ),
                   );
                 },
@@ -89,32 +109,22 @@ class _ChildListPageState extends State<ChildListPage> {
 }
 
 class ChildVaccinationSchedulePage extends StatelessWidget {
-  final String childName;
-  Map<String, dynamic> profile = {
-    'name': 'John Doe',
-    'email': 'johndoe@example.com',
-    'phone': '+1 (555) 123-4567',
-    'address': {
-      'street': '123 Main St',
-      'city': 'Anytown',
-      'state': 'CA',
-      'zip': '12345'
-    }
-  };
-  ChildVaccinationSchedulePage({required this.childName});
+  ChildVaccinationSchedulePage({required this.list, required this.index});
+  final List list;
+  final int index;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Vaccination Schedule for $childName'),
+        title: Text('Vaccination Schedule for ' + list[index]['name']),
         backgroundColor: Color.fromARGB(255, 246, 93, 144),
       ),
       body: ListView.builder(
-        itemCount: profile.length,
+        itemCount: list.length,
         itemBuilder: (context, index) {
-          String key = profile.keys.elementAt(index);
-          dynamic value = profile[key];
+          // String key = list.keys.elementAt(index);
+          // dynamic value = profile[key];
           return Card(
             elevation: 2.0,
             shape: RoundedRectangleBorder(
@@ -136,14 +146,17 @@ class ChildVaccinationSchedulePage extends StatelessWidget {
                 children: [
                   ListTile(
                     title: Text(
-                      key,
+                      "abc",
+                      // (Timestamp.now().toDate().difference(list[index]['dob']))
+                      //     .inDays
+                      //     .toString(),
                       style: TextStyle(
                         fontWeight: FontWeight.bold,
                         color: Color.fromARGB(255, 42, 41, 41),
                       ),
                     ),
                     subtitle: Text(
-                      value.toString(),
+                      list[index]['gender'],
                       style: TextStyle(
                         color: Color.fromARGB(255, 77, 76, 76),
                       ),

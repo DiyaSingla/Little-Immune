@@ -5,12 +5,13 @@ import 'package:little_immune/signin.dart';
 import 'package:little_immune/util/apointment.dart';
 import 'package:little_immune/util/due_vaccine_list.dart';
 import 'package:little_immune/util/faq.dart';
-import 'package:little_immune/util/vaccine_taken_list.dart';
 import 'package:little_immune/util/child_list.dart';
-import 'Screen/childAdded.dart';
 import 'package:little_immune/Screen/CalenderView.dart';
 
 class Dashboard extends StatefulWidget {
+  const Dashboard({super.key, required this.email});
+  final String email;
+
   @override
   State<Dashboard> createState() => _dashboardState();
 }
@@ -22,23 +23,33 @@ class _dashboardState extends State<Dashboard> {
     });
     if (index == 1) {
       Navigator.pushReplacement(
-          context, MaterialPageRoute(builder: (context) => DueVaccineList()));
+          context,
+          MaterialPageRoute(
+              builder: (context) => DueVaccineList(
+                    email: widget.email,
+                  )));
     }
     if (index == 2) {
       Navigator.pushReplacement(
-          context, MaterialPageRoute(builder: (context) => Appointment()));
+          context,
+          MaterialPageRoute(
+              builder: (context) => Appointment(
+                    email: widget.email,
+                  )));
     }
   }
 
   int _selectedIndex = 0;
-  static final List<Widget> _widgetOptions = <Widget>[
-    Scaffold(
-      body: Home(),
-    ),
-  ];
 
   @override
   Widget build(BuildContext context) {
+    final List<Widget> _widgetOptions = <Widget>[
+      Scaffold(
+        body: Home(
+          email: widget.email,
+        ),
+      ),
+    ];
     return SafeArea(
       child: Scaffold(
         body: Center(
@@ -108,7 +119,7 @@ class _dashboardState extends State<Dashboard> {
                     leading: Icon(Icons.calendar_month_outlined),
                     title: Text('Calender View'),
                     onTap: () {
-                    Navigator.push(
+                      Navigator.push(
                           context,
                           MaterialPageRoute(
                               builder: (context) => MyCalendarWidget()));
@@ -123,7 +134,10 @@ class _dashboardState extends State<Dashboard> {
                       Navigator.pop(context);
                       Navigator.push(
                         context,
-                        MaterialPageRoute(builder: (context) => ChildListPage()),
+                        MaterialPageRoute(
+                            builder: (context) => ChildListPage(
+                                  email: widget.email,
+                                )),
                       );
                       // Navigate to home screen
                     },

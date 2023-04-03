@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:little_immune/Screen/childAdded.dart';
 import 'package:little_immune/Screen/vaccine.dart';
-import 'package:little_immune/util/vaccine_taken_list.dart';
 import 'package:little_immune/vaccine_search.dart';
 
 class Home extends StatelessWidget {
+  const Home({super.key, required this.email});
+  final String email;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -85,7 +87,9 @@ class Home extends StatelessWidget {
             height: 20,
             width: 40,
           ),
-          ChildAdded(),
+          ChildAdded(
+            email: email,
+          ),
         ],
       ),
     );

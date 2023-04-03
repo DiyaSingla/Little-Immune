@@ -69,8 +69,12 @@ class _SignUpState extends State<SignUp> {
                         SnackBar(content: Text("New Account Created")),
                       );
                       print("Created New Account");
-                      Navigator.push(context,
-                          MaterialPageRoute(builder: (context) => Dashboard()));
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => Dashboard(
+                                    email: _emailTextController.text,
+                                  )));
                     }).onError((error, stackTrace) {
                       ScaffoldMessenger.of(context).showSnackBar(
                         SnackBar(

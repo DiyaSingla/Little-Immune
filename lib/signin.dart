@@ -54,8 +54,12 @@ class _SignInState extends State<SignIn> {
                         email: _emailTextController.text,
                         password: _passwordTextController.text)
                     .then((value) {
-                  Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => Dashboard()));
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => Dashboard(
+                                email: _emailTextController.text,
+                              )));
                 }).onError((error, stackTrace) {
                   ScaffoldMessenger.of(context).showSnackBar(
                     SnackBar(

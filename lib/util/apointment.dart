@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:little_immune/dashboard.dart';
 
 class Appointment extends StatelessWidget {
-  const Appointment({Key? key}) : super(key: key);
+  const Appointment({super.key, required this.email});
+  final String email;
 
   @override
   Widget build(BuildContext context) {
@@ -18,8 +19,12 @@ class Appointment extends StatelessWidget {
                 icon: Icon(Icons.settings))
           ],
           leading: IconButton(
-              onPressed: () => Navigator.pushReplacement(context,
-                  MaterialPageRoute(builder: (context) => Dashboard())),
+              onPressed: () => Navigator.pushReplacement(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => Dashboard(
+                            email: email,
+                          ))),
               // Navigate to about screen
 
               icon: Icon(Icons.arrow_back))),
