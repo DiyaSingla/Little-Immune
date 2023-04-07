@@ -34,8 +34,6 @@ Front-End : Flutter
 
 Back-end : Firestore and Firebase 
 
-Github: https://github.com/DiyaSingla/Little-Immune
-
 
 
 ScreenShots :
