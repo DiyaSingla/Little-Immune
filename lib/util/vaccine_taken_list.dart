@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:little_immune/Screen/vaccine_list_screen.dart';
-
 import '../Screen/vaccine.dart';
 
 class VaccineList extends StatelessWidget {

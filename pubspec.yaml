@@ -71,6 +71,7 @@ flutter:
     - images/child_vaccine.jpg
     - images/formBaby.png
     - images/Liitle_IMMUNE.png
+    - images/dashboardimg.png
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see

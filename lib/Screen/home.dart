@@ -30,9 +30,8 @@ class Home extends StatelessWidget {
                             builder: (context) => FirebaseSearchScreen()));
                   },
                   child: Text(
-                    'View all',
-                    style: TextStyle(
-                        color: Color.fromARGB(255, 172, 65, 205), fontSize: 15),
+                    'Search Vaccine',
+                    style: TextStyle(color: Colors.pink, fontSize: 15),
                   ),
                   color: Colors.white,
                 ),

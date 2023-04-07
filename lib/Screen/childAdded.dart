@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:little_immune/util/child_list.dart';
 import 'package:little_immune/util/form.dart';
@@ -30,11 +29,25 @@ class ChildAdded extends StatelessWidget {
                         color: Color.fromARGB(255, 250, 97, 148),
                       ),
                     ),
+                    Row(mainAxisAlignment: MainAxisAlignment.center, children: [
+                      const Padding(padding: EdgeInsets.only(top: 20)),
+                      Flexible(
+                        child: Container(
+                          width: double.infinity,
+                          height: 150,
+                          decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(12),
+                              image: const DecorationImage(
+                                image: AssetImage('images/dashboardimg.png'),
+                              )),
+                        ),
+                      ),
+                    ]),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Container(
-                            padding: const EdgeInsets.only(top: 100, left: 40),
+                            padding: const EdgeInsets.only(top: 130, left: 40),
                             child: MaterialButton(
                               onPressed: () {
                                 Navigator.push(
@@ -53,7 +66,7 @@ class ChildAdded extends StatelessWidget {
                         Container(
                             padding: const EdgeInsets.only(
                               right: 40,
-                              top: 100,
+                              top: 130,
                             ),
                             child: ElevatedButton(
                                 onPressed: () {

@@ -1,7 +1,4 @@
-import 'dart:convert';
-
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
 import 'package:table_calendar/table_calendar.dart';
 
 class MyCalendarWidget extends StatefulWidget {
@@ -11,22 +8,19 @@ class MyCalendarWidget extends StatefulWidget {
 }
 
 class _MyCalendarWidgetState extends State<MyCalendarWidget> {
- 
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: Text("Calender View"),
         leading: IconButton(
           onPressed: () => Navigator.pop(context),
-          icon:Icon(Icons.arrow_back) ,
+          icon: Icon(Icons.arrow_back),
         ),
       ),
       body: TableCalendar(
-        focusedDay:DateTime.now(), firstDay: DateTime.utc(2010), lastDay:DateTime.utc(2040)
-        
-        ),
+          focusedDay: DateTime.now(),
+          firstDay: DateTime.utc(2010),
+          lastDay: DateTime.utc(2040)),
     );
   }
 }
-
-

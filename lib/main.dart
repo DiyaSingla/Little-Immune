@@ -14,14 +14,11 @@ class MyApp extends StatelessWidget {
 
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Little Immune',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
-      debugShowCheckedModeBanner: false,
-      home: const MyHomePage(
-        title: "Little Immune",
-      ),
-    );
+        title: 'Little Immune',
+        theme: ThemeData(
+          primarySwatch: Colors.pink,
+        ),
+        debugShowCheckedModeBanner: false,
+        home: const MyHomePage(title: "Little Immune"));
   }
 }

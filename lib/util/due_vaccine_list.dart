@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:little_immune/Screen/dueVaccineFormat.dart';
 import 'package:little_immune/dashboard.dart';
-
-import '../Screen/vaccine.dart';
 
 class DueVaccineList extends StatelessWidget {
   const DueVaccineList({super.key, required this.email});
@@ -14,12 +13,6 @@ class DueVaccineList extends StatelessWidget {
         appBar: AppBar(
             backgroundColor: Color.fromARGB(255, 250, 97, 148),
             title: const Text('Due Vaccine'),
-            actions: [
-              IconButton(
-                  padding: const EdgeInsets.symmetric(horizontal: 20),
-                  onPressed: () {},
-                  icon: Icon(Icons.settings))
-            ],
             leading: IconButton(
                 onPressed: () => Navigator.pushReplacement(
                     context,
@@ -35,19 +28,19 @@ class DueVaccineList extends StatelessWidget {
           padding: EdgeInsets.only(top: 10, left: 40),
           child: Column(
             children: const [
-              Vaccine(),
+              DueVaccineFormat(),
               SizedBox(
                 height: 10,
               ),
-              Vaccine(),
+              DueVaccineFormat(),
               SizedBox(
                 height: 10,
               ),
-              Vaccine(),
+              DueVaccineFormat(),
               SizedBox(
                 height: 10,
               ),
-              Vaccine(),
+              DueVaccineFormat(),
               SizedBox(
                 height: 10,
               ),

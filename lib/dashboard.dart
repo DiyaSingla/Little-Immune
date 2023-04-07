@@ -1,10 +1,11 @@
+// ignore_for_file: unnecessary_new
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:little_immune/Screen/home.dart';
 import 'package:little_immune/signin.dart';
-import 'package:little_immune/util/apointment.dart';
 import 'package:little_immune/util/due_vaccine_list.dart';
 import 'package:little_immune/util/faq.dart';
+import 'package:little_immune/util/notification.dart';
 import 'package:little_immune/util/child_list.dart';
 import 'package:little_immune/Screen/CalenderView.dart';
 
@@ -21,6 +22,7 @@ class _dashboardState extends State<Dashboard> {
     setState(() {
       _selectedIndex = index;
     });
+
     if (index == 1) {
       Navigator.pushReplacement(
           context,
@@ -29,11 +31,12 @@ class _dashboardState extends State<Dashboard> {
                     email: widget.email,
                   )));
     }
+
     if (index == 2) {
       Navigator.pushReplacement(
           context,
           MaterialPageRoute(
-              builder: (context) => Appointment(
+              builder: (context) => Notifications(
                     email: widget.email,
                   )));
     }
@@ -59,11 +62,6 @@ class _dashboardState extends State<Dashboard> {
           backgroundColor: Color.fromARGB(255, 250, 97, 148),
           title: const Text('Little Immune'),
           actions: [
-            IconButton(
-              padding: const EdgeInsets.symmetric(horizontal: 20),
-              icon: const Icon(Icons.search),
-              onPressed: () {},
-            ),
             IconButton(
                 padding: const EdgeInsets.symmetric(horizontal: 20),
                 onPressed: () {
@@ -181,17 +179,33 @@ class _dashboardState extends State<Dashboard> {
           ),
         ),
         bottomNavigationBar: BottomNavigationBar(
-          items: const [
-            BottomNavigationBarItem(
+          items: [
+            const BottomNavigationBarItem(
                 label: 'Home',
                 icon: Icon(Icons.home),
                 backgroundColor: Colors.pink),
-            BottomNavigationBarItem(
+            const BottomNavigationBarItem(
               label: 'Due Vaccine',
               icon: Icon(Icons.vaccines),
             ),
             BottomNavigationBarItem(
-                label: 'Appointment', icon: Icon(Icons.location_pin)),
+              label: "Notification",
+              icon: Stack(children: [
+                Icon(Icons.favorite),
+                Positioned(
+                    top: -1.0,
+                    right: -1.0,
+                    child: Stack(
+                      children: const [
+                        Icon(
+                          Icons.brightness_1,
+                          size: 12.0,
+                          color: Color(0xFF2845E7),
+                        ),
+                      ],
+                    )),
+              ]),
+            ),
           ],
           currentIndex: _selectedIndex,
           selectedItemColor: Color.fromARGB(255, 212, 57, 145),

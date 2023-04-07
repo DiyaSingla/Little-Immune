@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import '../util/appLayout.dart';
 
 class Vaccine extends StatelessWidget {
