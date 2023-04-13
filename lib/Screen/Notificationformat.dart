@@ -1,9 +1,61 @@
 import 'package:flutter/material.dart';
 import 'package:little_immune/util/VaccineNotificationInfo.dart';
 import '../util/appLayout.dart';
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 
 class NotificationFormat extends StatelessWidget {
   const NotificationFormat({Key? key}) : super(key: key);
+
+//   Future<dynamic> onDidReceiveLocalNotification(
+//     int id, String title, String body, String payload) async {
+//   // Handle the notification when it is received while the app is in the foreground
+// }
+
+// Future<dynamic> onSelectNotification(String payload) async {
+//   // Handle the notification when the user taps on it
+// }
+
+//  IOSInitializationSettings({required Future Function(int id, String title, String body, String payload) onDidReceiveLocalNotification}) {}
+
+//  IOSNotificationDetails() {}
+
+// Future<void> Notification() async {
+//   FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
+//     FlutterLocalNotificationsPlugin();
+
+//     var initializationSettingsAndroid =
+//     AndroidInitializationSettings('@mipmap/ic_launcher');
+
+// var initializationSettingsIOS = IOSInitializationSettings(
+//     onDidReceiveLocalNotification: onDidReceiveLocalNotification);
+
+// var initializationSettings = InitializationSettings(
+//     android: initializationSettingsAndroid, iOS: initializationSettingsIOS);
+
+// await flutterLocalNotificationsPlugin.initialize(initializationSettings,
+//     onSelectNotification: onSelectNotification);
+
+//     var androidPlatformChannelSpecifics = const AndroidNotificationDetails(
+//     'your channel id', 'your channel name',
+//     importance: Importance.max, priority: Priority.high);
+
+// var iOSPlatformChannelSpecifics = IOSNotificationDetails();
+
+// var platformChannelSpecifics = NotificationDetails(
+//     android: androidPlatformChannelSpecifics,
+//     iOS: iOSPlatformChannelSpecifics);
+
+// await flutterLocalNotificationsPlugin.show(
+//     0, 'New Notification', 'Flutter Local Notification', platformChannelSpecifics,
+//     payload: 'item x');
+
+//     SharedPreferences prefs = await SharedPreferences.getInstance();
+
+// List<String> notifications = prefs.getStringList('notifications') ?? [];
+// notifications.add('New Notification');
+
+// await prefs.setStringList('notifications', notifications);
+// }
 
   @override
   Widget build(BuildContext context) {

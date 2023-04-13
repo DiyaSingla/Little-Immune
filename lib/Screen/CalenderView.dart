@@ -11,10 +11,10 @@ class _MyCalendarWidgetState extends State<MyCalendarWidget> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Calender View"),
+        title: const Text("Calender View"),
         leading: IconButton(
           onPressed: () => Navigator.pop(context),
-          icon: Icon(Icons.arrow_back),
+          icon: const Icon(Icons.arrow_back),
         ),
       ),
       body: TableCalendar(

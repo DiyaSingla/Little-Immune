@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import '../Screen/vaccine.dart';
 
 class VaccineList extends StatelessWidget {
-  const VaccineList({Key? key}) : super(key: key);
+  const VaccineList({Key? key, required int index, required List record})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
