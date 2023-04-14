@@ -46,6 +46,7 @@ class FirebaseSearchScreenState extends State<FirebaseSearchScreen> {
             padding: const EdgeInsets.all(15.0),
             child: TextField(
               decoration: const InputDecoration(
+                prefixIcon: Icon(Icons.search_rounded),
                 border: OutlineInputBorder(),
                 hintText: "Search Here",
               ),

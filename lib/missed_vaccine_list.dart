@@ -144,7 +144,7 @@ class MissedVaccineListScreen extends State<MissedVaccineList> {
   int _selectedIndex = 0;
   List taken = [];
 
-  void _itemChecked(bool isChecked, List item) {
+  void _itemChecked(bool isChecked, String item) {
     setState(() {
       if (isChecked) {
         taken.add(item);

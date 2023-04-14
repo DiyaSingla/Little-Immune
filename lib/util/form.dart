@@ -12,7 +12,6 @@ class MyCustomForm extends StatefulWidget {
     return MyCustomFormState();
   }
 }
-
 // Define a corresponding State class.
 // This class holds data related to the form.
 class MyCustomFormState extends State<MyCustomForm> {
@@ -27,9 +26,29 @@ class MyCustomFormState extends State<MyCustomForm> {
   final _formKey = GlobalKey<FormState>();
   String _selectedOption = "";
   DateTime _selectedDate = DateTime.now();
+ // DateTime? _selectedDate;
+  TextEditingController _dateController = TextEditingController();
 
+  Future<void> _selectDate() async {
+    final DateTime? selectedDate = await showDatePicker(
+      context: context,
+      initialDate: DateTime.now(),
+      firstDate: DateTime(1900),
+      lastDate: DateTime.now(),
+    );
+
+    if (selectedDate != null) {
+      setState(() {
+        _selectedDate = selectedDate;
+        _dateController.text = _selectedDate.toString().substring(0, 10);
+      });
+    }
+  }
+ 
   @override
+  
   Widget build(BuildContext context) {
+   
     // Build a Form widget using the _formKey created above.
     return MaterialApp(
         title: 'Add Child Details',
@@ -76,10 +95,13 @@ class MyCustomFormState extends State<MyCustomForm> {
                     const SizedBox(
                       height: 16,
                     ),
-                    DateTimeField(
-                      decoration: InputDecoration(
+                  TextFormField(
+                   controller: _dateController,
+                   onTap: _selectDate,
+                   readOnly: true,
+                   decoration: InputDecoration(
                         prefixIcon: Icon(Icons.calendar_month_outlined),
-                        labelText: "Select Date Of Birth",
+                        labelText: "Date Of Birth",
                         labelStyle:
                             TextStyle(color: Color.fromARGB(255, 26, 28, 28)),
                         filled: true,
@@ -88,13 +110,26 @@ class MyCustomFormState extends State<MyCustomForm> {
                           borderRadius: BorderRadius.circular(10.0),
                         ),
                       ),
-                      selectedDate: _selectedDate,
-                      onDateSelected: (DateTime date) {
-                        setState(() {
-                          _selectedDate = date;
-                        });
-                      },
-                    ),
+                    ),        
+                    // DateTimeField(
+                      // decoration: InputDecoration(
+                      //   prefixIcon: Icon(Icons.calendar_month_outlined),
+                      //   labelText: "Select Date Of Birth",
+                      //   labelStyle:
+                      //       TextStyle(color: Color.fromARGB(255, 26, 28, 28)),
+                      //   filled: true,
+                      //   fillColor: Color.fromARGB(255, 220, 234, 233),
+                      //   border: OutlineInputBorder(
+                      //     borderRadius: BorderRadius.circular(10.0),
+                      //   ),
+                      // ),
+                    //   selectedDate: _selectedDate,
+                    //   onDateSelected: (DateTime date) {
+                    //     setState(() {
+                    //       _selectedDate = date;
+                    //     });
+                    //   },
+                    // ),
                     const SizedBox(
                       height: 16,
                     ),
