@@ -15,15 +15,25 @@ class MissedVaccineList extends StatefulWidget {
 class MissedVaccineListScreen extends State<MissedVaccineList> {
   List searchResult = [];
   List child = [];
+  String age = "";
+
+  void initState() {
+    super.initState();
+    getChild(widget.email);
+    for (int i = 0; i < child.length; i++) {
+      int days = DateTime.now().difference(child[i]['dob'].toDate()).inDays;
+      searchMissedVaccine(CalculateAge(days));
+    }
+  }
 
   void searchMissedVaccine(String age) async {
     final result = await FirebaseFirestore.instance
         .collection('Vaccines')
-        .where('dose', isEqualTo: age)
+        .where('to', isLessThan: age)
         .get();
 
     setState(() {
-      searchResult = result.docs.map((e) => e.data()).toList();
+      searchResult.add(result.docs.map((e) => e.data()).toList());
     });
   }
 
@@ -38,12 +48,21 @@ class MissedVaccineListScreen extends State<MissedVaccineList> {
     });
   }
 
+  String CalculateAge(int days) {
+    if (days >= 365) {
+      age = '${days ~/ 365} years';
+    } else if (days >= 31) {
+      age = '${days ~/ 31} months';
+    } else if (days >= 7) {
+      age = '${days ~/ 7} weeks';
+    } else {
+      age = '$days days';
+    }
+    return age;
+  }
+
   @override
   Widget build(BuildContext context) {
-    final size = MediaQuery.of(context).size;
-    getChild(widget.email);
-    searchMissedVaccine("2 drops");
-    //code for due vaccine nikalne ka tarika
     return Scaffold(
       appBar: AppBar(
         title: const Text("Missed Vaccines"),
@@ -55,26 +74,47 @@ class MissedVaccineListScreen extends State<MissedVaccineList> {
             child: ListView.builder(
               itemCount: searchResult.length,
               itemBuilder: (context, idx) {
-                // return VaccineList(
-                //   record: searchResult,
-                //   index: index,
-                // );
-                return CheckboxListTile(
-                  title: Text(searchResult[idx]),
-                  value: false,
-                  onChanged: (bool? isChecked) {
-                    _itemChecked(isChecked!, searchResult[idx]);
-                    if (isChecked == false) {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) =>
-                              VaccineList(record: searchResult, index: idx),
+                return Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: <Widget>[
+                      Padding(
+                        padding: EdgeInsets.all(8.0),
+                        child: Text(
+                          child[idx]['name'],
+                          style: TextStyle(
+                              fontSize: 18, fontWeight: FontWeight.bold),
                         ),
-                      );
-                    }
-                  },
-                );
+                      ),
+                      ListView.builder(
+                        shrinkWrap: true,
+                        physics: NeverScrollableScrollPhysics(),
+                        itemCount: searchResult[idx].length,
+                        itemBuilder: (context, innerIndex) {
+                          return CheckboxListTile(
+                            title: Text(searchResult[idx][innerIndex][
+                                'name']), // Modify this line to get the vaccine_name property from the data
+                            value: false,
+                            onChanged: (bool? isChecked) {
+                              _itemChecked(
+                                  isChecked!,
+                                  searchResult[idx][
+                                      innerIndex]); // Modify this line to pass the entire data object to _itemChecked method
+                              if (isChecked == false) {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => VaccineList(
+                                      record: searchResult,
+                                      index: idx,
+                                    ),
+                                  ),
+                                );
+                              }
+                            },
+                          );
+                        },
+                      )
+                    ]);
               },
             ),
           ),
@@ -85,7 +125,7 @@ class MissedVaccineListScreen extends State<MissedVaccineList> {
           BottomNavigationBarItem(
             label: "Vaccines Due",
             icon: Stack(children: [
-              Icon(Icons.vaccines_rounded),
+              const Icon(Icons.vaccines_rounded),
               Positioned(
                   top: -1.0,
                   right: -1.0,

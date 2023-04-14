@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:little_immune/dashboard.dart';
 
+import '../Screen/vaccine_list_screen.dart';
+
 class ChildListPage extends StatefulWidget {
   const ChildListPage({super.key, required this.email});
   final String email;
@@ -85,7 +87,10 @@ class _ChildListPageState extends State<ChildListPage> {
                   context,
                   MaterialPageRoute(
                     builder: (context) => ChildVaccinationSchedulePage(
-                        list: searchResult, index: index),
+                      list: searchResult,
+                      index: index,
+                      age: age,
+                    ),
                   ),
                 );
               },
@@ -109,137 +114,53 @@ class _ChildListPageState extends State<ChildListPage> {
   }
 }
 
-class ChildVaccinationSchedulePage extends StatelessWidget {
-  const ChildVaccinationSchedulePage(
-      {super.key, required this.list, required this.index});
+class ChildVaccinationSchedulePage extends StatefulWidget {
+  ChildVaccinationSchedulePage(
+      {super.key, required this.list, required this.index, required this.age});
   final List list;
   final int index;
+  final String age;
+
+  State<ChildVaccinationSchedulePage> createState() =>
+      VaccinationScheduleScreen();
+}
+
+class VaccinationScheduleScreen extends State<ChildVaccinationSchedulePage> {
+  List searchResult = [];
+
+  void initState() {
+    super.initState();
+    searchDueVaccine(widget.age);
+  }
+
+  void searchDueVaccine(String age) async {
+    final result = await FirebaseFirestore.instance
+        .collection('Vaccines')
+        .where("from", isGreaterThanOrEqualTo: age)
+        .where('from', isNotEqualTo: "At Birth")
+        .get();
+
+    setState(() {
+      searchResult = result.docs.map((e) => e.data()).toList();
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Vaccination Schedule for ' + list[index]['name']),
+        title: Text(
+            'Vaccination Schedule for ' + widget.list[widget.index]['name']),
       ),
       body: ListView.builder(
-        itemCount: list.length,
+        itemCount: searchResult.length,
         itemBuilder: (context, index) {
-          // String key = list.keys.elementAt(index);
-          // dynamic value = profile[key];
-          return Card(
-            elevation: 2.0,
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(10.0),
-            ),
-            child: Container(
-              decoration: BoxDecoration(
-                gradient: const LinearGradient(
-                  colors: [
-                    Color.fromARGB(255, 247, 247, 246),
-                    Color.fromARGB(255, 255, 135, 165)
-                  ],
-                  begin: Alignment.topLeft,
-                  end: Alignment.bottomRight,
-                ),
-                borderRadius: BorderRadius.circular(10.0),
-              ),
-              child: Column(
-                children: [
-                  ListTile(
-                    title: const Text(
-                      "abc",
-                      // (Timestamp.now().toDate().difference(list[index]['dob']))
-                      //     .inDays
-                      //     .toString(),
-                      style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        color: Color.fromARGB(255, 42, 41, 41),
-                      ),
-                    ),
-                    subtitle: Text(
-                      list[index]['gender'],
-                      style: const TextStyle(
-                        color: Color.fromARGB(255, 77, 76, 76),
-                      ),
-                    ),
-                  ),
-                  const Divider(
-                    thickness: 1.0,
-                    color: Colors.white,
-                  ),
-                ],
-              ),
-            ),
+          return VaccineList(
+            record: searchResult,
+            index: index,
           );
         },
       ),
     );
   }
 }
-
-// class _ChildListPageState extends State<ChildListPage> {
-//   final List<String> childNames = ['Alice', 'Bob', 'Charlie'];
-  
-
-//   @override
-//   Widget build(BuildContext context) {
-//     return Scaffold(
-      
-//       body: Container(
-//         width: MediaQuery.of(context).size.width,
-//         height: MediaQuery.of(context).size.height,
-//         decoration: const BoxDecoration(
-//           gradient: LinearGradient(
-//             colors: [
-//               Color.fromARGB(255, 18, 185, 222),
-//               Color.fromARGB(255, 207, 132, 238),
-//               Color.fromARGB(255, 171, 248, 194),
-//             ],
-//             begin: Alignment.topLeft,
-//             end: Alignment.bottomRight,
-//           ),
-//         ),
-//         child: Padding(
-//           padding: const EdgeInsets.all(12.0),
-//           child: Column(
-//             children: [
-//               Container(
-//                 child: SizedBox(
-//                   height: 150,
-//                   child: Row(
-//                     children: [
-//                       Expanded(
-//                         flex: 1,
-//                         child: Container(
-//                           decoration: BoxDecoration(
-//                           borderRadius: BorderRadius.circular(12),
-//                           color: Colors.blue,
-//                           image: const DecorationImage(
-//                             fit: BoxFit.cover,
-//                             image: AssetImage('images/child_vaccine.jpg'),
-//                           )),
-//                         ),
-//                       ),
-//                       Expanded(
-//                         flex: 5,
-//                         child: Container(
-//                           color: Colors.white,
-//                           child: Center(child: Text('Right compartment')),
-//                         ),
-//                       ),
-//                     ],
-//                   ),
-//                 ),
-//               ),
-//               Expanded(
-//                 child: Container(
-//                     // Other content here
-//                     ),
-//               ),
-//             ],
-//           ),
-//         ),
-//       ),
-//     );
-//   }
-// }
