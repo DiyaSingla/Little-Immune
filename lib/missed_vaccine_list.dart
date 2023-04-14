@@ -149,11 +149,10 @@ class MissedVaccineListScreen extends State<MissedVaccineList> {
       if (isChecked) {
         taken.add(item);
         searchResult.remove(item);
+      } else {
+        taken.remove(item);
+        searchResult.add(item);
       }
-      // else {
-      //   taken.remove(item);
-      //   searchResult.add(item);
-      // }
     });
   }
 }

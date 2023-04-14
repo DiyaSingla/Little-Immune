@@ -33,7 +33,7 @@ class _SignUpState extends State<SignUp> {
                 EdgeInsets.only(left: 20, top: size.height * 0.1, right: 20),
             child: Column(
               children: <Widget>[
-                logoWidget("images/Liitle_IMMUNE.png"),
+                Image.asset("images/Liitle_IMMUNE.png"),
                 const SizedBox(
                   height: 20,
                   width: 20,

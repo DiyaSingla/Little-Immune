@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:little_immune/Screen/home.dart';
@@ -7,6 +8,7 @@ import 'package:little_immune/util/faq.dart';
 import 'package:little_immune/util/notification.dart';
 import 'package:little_immune/util/child_list.dart';
 import 'package:little_immune/Screen/CalenderView.dart';
+import 'package:little_immune/vaccine_search.dart';
 
 class Dashboard extends StatefulWidget {
   const Dashboard({super.key, required this.email});
@@ -45,32 +47,38 @@ class _dashboardState extends State<Dashboard> {
 
   @override
   Widget build(BuildContext context) {
-    final List<Widget> _widgetOptions = <Widget>[
-      Scaffold(
-        body: Home(
-          email: widget.email,
-        ),
-      ),
-    ];
+    // final List<Widget> widgetOptions = <Widget>[
+    //   Scaffold(
+    //     body: Display(),
+    //   ),
+    // ];
     return SafeArea(
       child: Scaffold(
         body: Center(
-          child: _widgetOptions.elementAt(_selectedIndex),
-        ),
+            //child: widgetOptions.elementAt(_selectedIndex),
+            child: Home(
+          email: widget.email,
+        )),
         appBar: AppBar(
-          backgroundColor: Color.fromARGB(255, 250, 97, 148),
           title: const Text('Little Immune'),
           actions: [
             IconButton(
                 padding: const EdgeInsets.symmetric(horizontal: 20),
                 onPressed: () {
                   FirebaseAuth.instance.signOut().then((value) {
-                    print("Signed Out");
-                    Navigator.pushReplacement(context,
-                        MaterialPageRoute(builder: (context) => SignIn()));
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      const SnackBar(
+                        content: Text(
+                            "Signed Out"), // Duration for which the snackbar will be visible
+                      ),
+                    );
+                    Navigator.pushReplacement(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const SignIn()));
                   });
                 },
-                icon: Icon(Icons.logout))
+                icon: const Icon(Icons.logout))
           ],
         ),
         drawer: Drawer(
@@ -88,11 +96,11 @@ class _dashboardState extends State<Dashboard> {
                 child: Column(children: const <Widget>[
                   SizedBox(height: 70),
                   CircleAvatar(
+                    backgroundColor: Colors.white,
                     child: Icon(
                       Icons.person,
                       color: Colors.grey,
                     ),
-                    backgroundColor: Colors.white,
                   ),
                   SizedBox(height: 5),
                   Text(
@@ -104,29 +112,29 @@ class _dashboardState extends State<Dashboard> {
               Column(
                 children: <Widget>[
                   ListTile(
-                    leading: Icon(Icons.home),
-                    title: Text('Home'),
+                    leading: const Icon(Icons.home),
+                    title: const Text('Home'),
                     onTap: () {
                       Navigator.pop(context);
                       // Navigate to home screen
                     },
                   ),
-                  Divider(),
+                  const Divider(),
                   ListTile(
-                    leading: Icon(Icons.calendar_month_outlined),
-                    title: Text('Calender View'),
+                    leading: const Icon(Icons.calendar_month_outlined),
+                    title: const Text('Calender View'),
                     onTap: () {
                       Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => MyCalendarWidget()));
+                              builder: (context) => const MyCalendarWidget()));
                       // Navigate to home screen
                     },
                   ),
-                  Divider(),
+                  const Divider(),
                   ListTile(
-                    leading: Icon(Icons.child_care_sharp),
-                    title: Text('Child List'),
+                    leading: const Icon(Icons.child_care_sharp),
+                    title: const Text('Child List'),
                     onTap: () {
                       Navigator.pop(context);
                       Navigator.push(
@@ -139,19 +147,19 @@ class _dashboardState extends State<Dashboard> {
                       // Navigate to home screen
                     },
                   ),
-                  Divider(),
+                  const Divider(),
                   ListTile(
-                    leading: Icon(Icons.schedule_outlined),
-                    title: Text('Vaccine Schedule'),
+                    leading: const Icon(Icons.schedule_outlined),
+                    title: const Text('Vaccine Schedule'),
                     onTap: () {
                       Navigator.pop(context);
                       // Navigate to home screen
                     },
                   ),
-                  Divider(),
+                  const Divider(),
                   ListTile(
-                    leading: Icon(Icons.info),
-                    title: Text('FAQ'),
+                    leading: const Icon(Icons.info),
+                    title: const Text('FAQ'),
                     onTap: () {
                       Navigator.push(
                           context,
@@ -160,15 +168,22 @@ class _dashboardState extends State<Dashboard> {
                       // Navigate to settings screen
                     },
                   ),
-                  Divider(),
+                  const Divider(),
                   ListTile(
-                    leading: Icon(Icons.logout),
-                    title: Text('Log Out'),
+                    leading: const Icon(Icons.logout),
+                    title: const Text('Log Out'),
                     onTap: () {
                       FirebaseAuth.instance.signOut().then((value) {
-                        print("Signed Out");
-                        Navigator.pushReplacement(context,
-                            MaterialPageRoute(builder: (context) => SignIn()));
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          const SnackBar(
+                            content: Text(
+                                "Signed out"), // Duration for which the snackbar will be visible
+                          ),
+                        );
+                        Navigator.pushReplacement(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => const SignIn()));
                       });
                     },
                   ),
@@ -190,7 +205,7 @@ class _dashboardState extends State<Dashboard> {
             BottomNavigationBarItem(
               label: "Notification",
               icon: Stack(children: [
-                Icon(Icons.favorite),
+                const Icon(Icons.favorite),
                 Positioned(
                     top: -1.0,
                     right: -1.0,
@@ -207,10 +222,23 @@ class _dashboardState extends State<Dashboard> {
             ),
           ],
           currentIndex: _selectedIndex,
-          selectedItemColor: Color.fromARGB(255, 212, 57, 145),
+          selectedItemColor: const Color.fromARGB(255, 212, 57, 145),
           onTap: _onItemTapped,
         ),
       ),
     );
+  }
+
+  List searchResult = [];
+
+  void getAllData() async {
+    final result =
+        await FirebaseFirestore.instance.collection('Vaccines').get();
+
+    searchResult = result.docs.map((e) => e.data()).toList();
+
+    // setState(() {
+    //   searchResult = result.docs.map((e) => e.data()).toList();
+    // });
   }
 }

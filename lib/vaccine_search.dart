@@ -12,6 +12,12 @@ class FirebaseSearchScreen extends StatefulWidget {
 class FirebaseSearchScreenState extends State<FirebaseSearchScreen> {
   List searchResult = [];
 
+  @override
+  void initState() {
+    super.initState();
+    getAllData();
+  }
+
   void getAllData() async {
     final result =
         await FirebaseFirestore.instance.collection('Vaccines').get();
