@@ -8,13 +8,15 @@ import 'package:little_immune/util/appLayout.dart';
 class SignUp extends StatefulWidget {
   const SignUp({Key? key}) : super(key: key);
 
+  @override
   _SignUpState createState() => _SignUpState();
 }
 
 class _SignUpState extends State<SignUp> {
-  TextEditingController _passwordTextController = TextEditingController();
-  TextEditingController _emailTextController = TextEditingController();
+  final TextEditingController _passwordTextController = TextEditingController();
+  final TextEditingController _emailTextController = TextEditingController();
 
+  @override
   Widget build(BuildContext context) {
     final size = AppLayout.getSize(context);
     return Scaffold(
@@ -66,7 +68,7 @@ class _SignUpState extends State<SignUp> {
                             password: _passwordTextController.text)
                         .then((value) {
                       ScaffoldMessenger.of(context).showSnackBar(
-                        SnackBar(content: Text("New Account Created")),
+                        const SnackBar(content: Text("New Account Created")),
                       );
                       print("Created New Account");
                       Navigator.push(
@@ -93,12 +95,6 @@ class _SignUpState extends State<SignUp> {
 
   Future<bool> doesUserExist(String email, String password) async {
     try {
-      UserCredential userCredential =
-          await FirebaseAuth.instance.signInWithEmailAndPassword(
-        email: email,
-        password:
-            password, // This can be empty as we're only checking if user exists
-      );
       // If signInWithEmailAndPassword succeeds, user already exists
       return true;
     } on FirebaseAuthException catch (e) {

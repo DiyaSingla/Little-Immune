@@ -17,20 +17,6 @@ class Vaccine extends StatelessWidget {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
-                  // Expanded(
-                  //   child: Container(
-                  //     padding: EdgeInsets.all(20),
-                  //     width: 180,
-                  //     height: 180,
-                  //     decoration: BoxDecoration(
-                  //         borderRadius: BorderRadius.circular(12),
-                  //         color: Colors.blue,
-                  //         image: const DecorationImage(
-                  //           fit: BoxFit.cover,
-                  //           image: AssetImage('images/child_vaccine.jpg'),
-                  //         )),
-                  //   ),
-                  // ),
                   Expanded(
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.center,

@@ -1,4 +1,3 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:little_immune/Screen/home.dart';
@@ -8,7 +7,6 @@ import 'package:little_immune/util/faq.dart';
 import 'package:little_immune/util/notification.dart';
 import 'package:little_immune/util/child_list.dart';
 import 'package:little_immune/Screen/CalenderView.dart';
-import 'package:little_immune/vaccine_search.dart';
 
 class Dashboard extends StatefulWidget {
   const Dashboard({super.key, required this.email});
@@ -47,11 +45,6 @@ class _dashboardState extends State<Dashboard> {
 
   @override
   Widget build(BuildContext context) {
-    // final List<Widget> widgetOptions = <Widget>[
-    //   Scaffold(
-    //     body: Display(),
-    //   ),
-    // ];
     return SafeArea(
       child: Scaffold(
         body: Center(
@@ -227,18 +220,5 @@ class _dashboardState extends State<Dashboard> {
         ),
       ),
     );
-  }
-
-  List searchResult = [];
-
-  void getAllData() async {
-    final result =
-        await FirebaseFirestore.instance.collection('Vaccines').get();
-
-    searchResult = result.docs.map((e) => e.data()).toList();
-
-    // setState(() {
-    //   searchResult = result.docs.map((e) => e.data()).toList();
-    // });
   }
 }

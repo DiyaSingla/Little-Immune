@@ -74,9 +74,9 @@ class NotificationFormat extends StatelessWidget {
                     child: Stack(
                       children: [
                         Container(
-                          padding: EdgeInsets.only(left: 70),
+                          padding: const EdgeInsets.only(left: 70),
                           height: 250,
-                          decoration: BoxDecoration(
+                          decoration: const BoxDecoration(
                             color: Color.fromARGB(255, 250, 97, 148),
                           ),
                         ),
@@ -90,7 +90,7 @@ class NotificationFormat extends StatelessWidget {
                                       padding: EdgeInsets.only(top: 20)),
                                   Flexible(
                                     child: Container(
-                                      padding: EdgeInsets.all(20),
+                                      padding: const EdgeInsets.all(20),
                                       width: 180,
                                       height: 180,
                                       decoration: BoxDecoration(
@@ -150,7 +150,8 @@ class NotificationFormat extends StatelessWidget {
                             Row(
                               mainAxisAlignment: MainAxisAlignment.end,
                               children: [
-                                Padding(padding: EdgeInsets.only(top: 100)),
+                                const Padding(
+                                    padding: EdgeInsets.only(top: 100)),
                                 Container(
                                     padding: const EdgeInsets.only(right: 30),
                                     child: MaterialButton(
@@ -159,15 +160,15 @@ class NotificationFormat extends StatelessWidget {
                                             context,
                                             MaterialPageRoute(
                                                 builder: (context) =>
-                                                    VaccineNotificationInfo()));
+                                                    const VaccineNotificationInfo()));
                                       },
-                                      child: Text(
+                                      color: Colors.white,
+                                      child: const Text(
                                         'Information',
                                         style: TextStyle(
                                             color: Color.fromARGB(
                                                 255, 233, 73, 127)),
                                       ),
-                                      color: Colors.white,
                                     )),
                               ],
                             ),

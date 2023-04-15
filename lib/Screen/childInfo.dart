@@ -23,7 +23,7 @@ class ChildAdded extends StatelessWidget {
                 child: Stack(
                   children: [
                     Container(
-                      padding: EdgeInsets.only(left: 70),
+                      padding: const EdgeInsets.only(left: 70),
                       height: 180,
                       decoration: const BoxDecoration(
                         color: Color.fromARGB(255, 250, 97, 148),
@@ -57,11 +57,11 @@ class ChildAdded extends StatelessWidget {
                                               email: email,
                                             )));
                               },
-                              child: Text(
+                              color: Colors.blue,
+                              child: const Text(
                                 'Add Child',
                                 style: TextStyle(color: Colors.white),
                               ),
-                              color: Colors.blue,
                             )),
                         Container(
                             padding: const EdgeInsets.only(

@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:little_immune/Screen/Notificationformat.dart';
 import 'package:little_immune/dashboard.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -48,9 +47,9 @@ class Notifications extends StatelessWidget {
   Widget build(BuildContext context) {
     noti();
     return Scaffold(
-      backgroundColor: Color.fromARGB(255, 236, 129, 165),
+      backgroundColor: const Color.fromARGB(255, 236, 129, 165),
       appBar: AppBar(
-          backgroundColor: Color.fromARGB(255, 250, 97, 148),
+          backgroundColor: const Color.fromARGB(255, 250, 97, 148),
           title: const Text('Notification'),
           leading: IconButton(
               onPressed: () => Navigator.pushReplacement(
@@ -61,17 +60,17 @@ class Notifications extends StatelessWidget {
                           ))),
               // Navigate to about screen
 
-              icon: Icon(Icons.arrow_back))),
+              icon: const Icon(Icons.arrow_back))),
       body: SingleChildScrollView(
         scrollDirection: Axis.vertical,
-        padding: EdgeInsets.only(top: 10, left: 40),
+        padding: const EdgeInsets.only(top: 10, left: 40),
         child: ListView.builder(
-          itemCount: this.notifications.length,
+          itemCount: notifications.length,
           itemBuilder: (context, index) {
             return ListTile(
               title: Text(
-                this.notifications[index],
-                style: TextStyle(fontSize: 16.0),
+                notifications[index],
+                style: const TextStyle(fontSize: 16.0),
               ),
               subtitle: Text(
                 'Subtitle of item $index',

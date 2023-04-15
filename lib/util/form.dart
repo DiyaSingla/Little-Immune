@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:date_field/date_field.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
-// Define a custom Form widget.
 class MyCustomForm extends StatefulWidget {
   const MyCustomForm({super.key, required this.email});
   final String email;
@@ -12,22 +10,17 @@ class MyCustomForm extends StatefulWidget {
     return MyCustomFormState();
   }
 }
-// Define a corresponding State class.
-// This class holds data related to the form.
+
 class MyCustomFormState extends State<MyCustomForm> {
   final controllerName = TextEditingController();
   final controllerGender = TextEditingController();
   final controllerDob = TextEditingController();
-  // Create a global key that uniquely identifies the Form widget
-  // and allows validation of the form.
-  //
-  // Note: This is a `GlobalKey<FormState>`,
-  // not a GlobalKey<MyCustomFormState>.
+
   final _formKey = GlobalKey<FormState>();
   String _selectedOption = "";
   DateTime _selectedDate = DateTime.now();
- // DateTime? _selectedDate;
-  TextEditingController _dateController = TextEditingController();
+  // DateTime? _selectedDate;
+  final TextEditingController _dateController = TextEditingController();
 
   Future<void> _selectDate() async {
     final DateTime? selectedDate = await showDatePicker(
@@ -44,11 +37,9 @@ class MyCustomFormState extends State<MyCustomForm> {
       });
     }
   }
- 
+
   @override
-  
   Widget build(BuildContext context) {
-   
     // Build a Form widget using the _formKey created above.
     return MaterialApp(
         title: 'Add Child Details',
@@ -56,11 +47,11 @@ class MyCustomFormState extends State<MyCustomForm> {
         home: Center(
           child: Scaffold(
             appBar: AppBar(
-                backgroundColor: Color.fromARGB(255, 250, 97, 148),
-                title: Text('Add Child Details'),
+                backgroundColor: const Color.fromARGB(255, 250, 97, 148),
+                title: const Text('Add Child Details'),
                 leading: IconButton(
                     onPressed: () => Navigator.pop(context),
-                    icon: Icon(Icons.arrow_back))),
+                    icon: const Icon(Icons.arrow_back))),
             body: Padding(
               padding: const EdgeInsets.all(16.0),
               child: Form(
@@ -75,12 +66,12 @@ class MyCustomFormState extends State<MyCustomForm> {
                       controller: controllerName,
                       // The validator receives the text that the user has entered.
                       decoration: InputDecoration(
-                        prefixIcon: Icon(Icons.person_2_outlined),
+                        prefixIcon: const Icon(Icons.person_2_outlined),
                         labelText: "Child Name",
                         filled: true,
-                        fillColor: Color.fromARGB(255, 220, 234, 233),
-                        labelStyle:
-                            TextStyle(color: Color.fromARGB(255, 26, 28, 28)),
+                        fillColor: const Color.fromARGB(255, 220, 234, 233),
+                        labelStyle: const TextStyle(
+                            color: Color.fromARGB(255, 26, 28, 28)),
                         border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(10.0),
                         ),
@@ -95,41 +86,22 @@ class MyCustomFormState extends State<MyCustomForm> {
                     const SizedBox(
                       height: 16,
                     ),
-                  TextFormField(
-                   controller: _dateController,
-                   onTap: _selectDate,
-                   readOnly: true,
-                   decoration: InputDecoration(
-                        prefixIcon: Icon(Icons.calendar_month_outlined),
+                    TextFormField(
+                      controller: _dateController,
+                      onTap: _selectDate,
+                      readOnly: true,
+                      decoration: InputDecoration(
+                        prefixIcon: const Icon(Icons.calendar_month_outlined),
                         labelText: "Date Of Birth",
-                        labelStyle:
-                            TextStyle(color: Color.fromARGB(255, 26, 28, 28)),
+                        labelStyle: const TextStyle(
+                            color: Color.fromARGB(255, 26, 28, 28)),
                         filled: true,
-                        fillColor: Color.fromARGB(255, 220, 234, 233),
+                        fillColor: const Color.fromARGB(255, 220, 234, 233),
                         border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(10.0),
                         ),
                       ),
-                    ),        
-                    // DateTimeField(
-                      // decoration: InputDecoration(
-                      //   prefixIcon: Icon(Icons.calendar_month_outlined),
-                      //   labelText: "Select Date Of Birth",
-                      //   labelStyle:
-                      //       TextStyle(color: Color.fromARGB(255, 26, 28, 28)),
-                      //   filled: true,
-                      //   fillColor: Color.fromARGB(255, 220, 234, 233),
-                      //   border: OutlineInputBorder(
-                      //     borderRadius: BorderRadius.circular(10.0),
-                      //   ),
-                      // ),
-                    //   selectedDate: _selectedDate,
-                    //   onDateSelected: (DateTime date) {
-                    //     setState(() {
-                    //       _selectedDate = date;
-                    //     });
-                    //   },
-                    // ),
+                    ),
                     const SizedBox(
                       height: 16,
                     ),
@@ -152,8 +124,8 @@ class MyCustomFormState extends State<MyCustomForm> {
                                   });
                                 },
                               ),
-                              Text('Male'),
-                              Icon(
+                              const Text('Male'),
+                              const Icon(
                                 Icons.male_outlined,
                                 color: Colors.blue,
                               ),
@@ -171,8 +143,8 @@ class MyCustomFormState extends State<MyCustomForm> {
                                   });
                                 },
                               ),
-                              Text('Female'),
-                              Icon(
+                              const Text('Female'),
+                              const Icon(
                                 Icons.female_outlined,
                                 color: Colors.pink,
                               ),

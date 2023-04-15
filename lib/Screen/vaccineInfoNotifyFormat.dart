@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:little_immune/util/appLayout.dart';
 
 class VaccineNotificationFormat extends StatelessWidget {
+  const VaccineNotificationFormat({super.key});
+
   @override
   Widget build(BuildContext context) {
     final size = AppLayout.getSize(context);
@@ -11,7 +13,7 @@ class VaccineNotificationFormat extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Padding(padding: EdgeInsets.only(top: 10, left: 20)),
+            const Padding(padding: EdgeInsets.only(top: 10, left: 20)),
             Flexible(
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -20,8 +22,8 @@ class VaccineNotificationFormat extends StatelessWidget {
                     child: Stack(
                       children: [
                         Container(
-                          padding: EdgeInsets.only(left: 70),
-                          decoration: BoxDecoration(
+                          padding: const EdgeInsets.only(left: 70),
+                          decoration: const BoxDecoration(
                             color: Color.fromARGB(255, 250, 97, 148),
                           ),
                         ),
@@ -35,7 +37,7 @@ class VaccineNotificationFormat extends StatelessWidget {
                                       padding: EdgeInsets.only(top: 20)),
                                   Flexible(
                                     child: Container(
-                                      padding: EdgeInsets.all(20),
+                                      padding: const EdgeInsets.all(20),
                                       width: 180,
                                       height: 180,
                                       decoration: BoxDecoration(

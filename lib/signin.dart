@@ -9,13 +9,15 @@ import 'reusable_widget.dart';
 class SignIn extends StatefulWidget {
   const SignIn({Key? key}) : super(key: key);
 
+  @override
   _SignInState createState() => _SignInState();
 }
 
 class _SignInState extends State<SignIn> {
-  TextEditingController _passwordTextController = TextEditingController();
-  TextEditingController _emailTextController = TextEditingController();
+  final TextEditingController _passwordTextController = TextEditingController();
+  final TextEditingController _emailTextController = TextEditingController();
 
+  @override
   Widget build(BuildContext context) {
     final size = AppLayout.getSize(context);
     return Scaffold(
@@ -85,8 +87,8 @@ class _SignInState extends State<SignIn> {
             style: TextStyle(color: Colors.white70)),
         GestureDetector(
           onTap: () {
-            Navigator.push(
-                context, MaterialPageRoute(builder: (context) => SignUp()));
+            Navigator.push(context,
+                MaterialPageRoute(builder: (context) => const SignUp()));
           },
           child: const Text(
             "Sign Up",

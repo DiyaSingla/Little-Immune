@@ -15,7 +15,7 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   void initState() {
     Timer(
-      Duration(seconds: 3),
+      const Duration(seconds: 3),
       () {
         Navigator.pushReplacement(
             context, MaterialPageRoute(builder: (context) => SignIn()));
@@ -24,6 +24,7 @@ class _MyHomePageState extends State<MyHomePage> {
     super.initState();
   }
 
+  @override
   Widget build(BuildContext context) {
     return Stack(
       children: [
