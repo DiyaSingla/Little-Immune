@@ -102,9 +102,9 @@ class _HomeScreenState extends State<HomeScreen> {
           return Text('Error: ${snapshot.error}');
         } else {
           // Once data is retrieved, render the ListView.builder
-          return Container(
+          return SizedBox(
             width: MediaQuery.of(context).size.width,
-            height: MediaQuery.of(context).size.height,
+            height: MediaQuery.of(context).size.height * 0.3,
             child: ListView.builder(
               itemCount: snapshot.data?.length ?? 0,
               itemBuilder: (context, index) {

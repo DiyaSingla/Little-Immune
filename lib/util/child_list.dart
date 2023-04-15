@@ -138,6 +138,9 @@ class VaccinationScheduleScreen extends State<ChildVaccinationSchedulePage> {
         .collection('Vaccines')
         .where("from", isGreaterThanOrEqualTo: age)
         .where('from', isNotEqualTo: "At Birth")
+        .orderBy(
+          'from',
+        )
         .get();
 
     setState(() {

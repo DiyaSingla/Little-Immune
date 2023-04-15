@@ -20,10 +20,6 @@ class MissedVaccineListScreen extends State<MissedVaccineList> {
   void initState() {
     super.initState();
     getChild(widget.email);
-    for (int i = 0; i < child.length; i++) {
-      int days = DateTime.now().difference(child[i]['dob'].toDate()).inDays;
-      searchMissedVaccine(CalculateAge(days));
-    }
   }
 
   void searchMissedVaccine(String age) async {
@@ -31,10 +27,12 @@ class MissedVaccineListScreen extends State<MissedVaccineList> {
         .collection('Vaccines')
         .where('to', isLessThan: age)
         .get();
+    searchResult.add(result.docs.map((e) => e.data()).toList());
 
-    setState(() {
-      searchResult.add(result.docs.map((e) => e.data()).toList());
-    });
+    // setState(() {
+    //   searchResult.add(result.docs.map((e) => e.data()).toList());
+    // }
+    //);
   }
 
   void getChild(String query) async {
@@ -43,9 +41,18 @@ class MissedVaccineListScreen extends State<MissedVaccineList> {
         .where('email', isEqualTo: query)
         .get();
 
-    setState(() {
-      child = result.docs.map((e) => e.data()).toList();
-    });
+    child = result.docs.map((e) => e.data()).toList();
+
+    for (int i = 0; i < child.length; i++) {
+      int days = DateTime.now().difference(child[i]['dob'].toDate()).inDays;
+      searchMissedVaccine(CalculateAge(days));
+    }
+
+    print(searchResult);
+
+    // setState(() {
+    //   child = result.docs.map((e) => e.data()).toList();
+    // });
   }
 
   String CalculateAge(int days) {
@@ -74,47 +81,47 @@ class MissedVaccineListScreen extends State<MissedVaccineList> {
             child: ListView.builder(
               itemCount: searchResult.length,
               itemBuilder: (context, idx) {
-                return Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: <Widget>[
-                      Padding(
-                        padding: EdgeInsets.all(8.0),
-                        child: Text(
-                          child[idx]['name'],
-                          style: TextStyle(
-                              fontSize: 18, fontWeight: FontWeight.bold),
-                        ),
-                      ),
-                      ListView.builder(
-                        shrinkWrap: true,
-                        physics: NeverScrollableScrollPhysics(),
-                        itemCount: searchResult[idx].length,
-                        itemBuilder: (context, innerIndex) {
-                          return CheckboxListTile(
-                            title: Text(searchResult[idx][innerIndex][
-                                'name']), // Modify this line to get the vaccine_name property from the data
-                            value: false,
-                            onChanged: (bool? isChecked) {
-                              _itemChecked(
-                                  isChecked!,
-                                  searchResult[idx][
-                                      innerIndex]); // Modify this line to pass the entire data object to _itemChecked method
-                              if (isChecked == false) {
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (context) => VaccineList(
-                                      record: searchResult,
-                                      index: idx,
-                                    ),
-                                  ),
-                                );
-                              }
-                            },
+                return
+                    // Column(
+                    //     crossAxisAlignment: CrossAxisAlignment.start,
+                    //     children: <Widget>[
+                    //       Padding(
+                    //         padding: EdgeInsets.all(8.0),
+                    //         child: Text(
+                    //           child[idx]['name'],
+                    //           style: TextStyle(
+                    //               fontSize: 18, fontWeight: FontWeight.bold),
+                    //         ),
+                    //       ),
+                    ListView.builder(
+                  shrinkWrap: true,
+                  itemCount: searchResult.length,
+                  itemBuilder: (context, innerIndex) {
+                    return CheckboxListTile(
+                      title: Text(searchResult[idx][innerIndex][
+                          'name']), // Modify this line to get the vaccine_name property from the data
+                      value: false,
+                      onChanged: (bool? isChecked) {
+                        _itemChecked(
+                            isChecked!,
+                            searchResult[idx][
+                                innerIndex]); // Modify this line to pass the entire data object to _itemChecked method
+                        if (isChecked == false) {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => VaccineList(
+                                record: searchResult,
+                                index: idx,
+                              ),
+                            ),
                           );
-                        },
-                      )
-                    ]);
+                        }
+                      },
+                    );
+                  },
+                );
+                //]);
               },
             ),
           ),

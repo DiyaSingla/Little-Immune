@@ -19,8 +19,10 @@ class FirebaseSearchScreenState extends State<FirebaseSearchScreen> {
   }
 
   void getAllData() async {
-    final result =
-        await FirebaseFirestore.instance.collection('Vaccines').get();
+    final result = await FirebaseFirestore.instance
+        .collection('Vaccines')
+        .orderBy('name')
+        .get();
 
     setState(() {
       searchResult = result.docs.map((e) => e.data()).toList();
