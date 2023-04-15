@@ -1,4 +1,3 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:little_immune/Screen/vaccine_list_screen.dart';
 import 'package:little_immune/util/due_vaccine_list.dart';
@@ -17,29 +16,6 @@ class History extends StatefulWidget {
 class HistoryScreen extends State<History> {
   List searchResult = [];
   List child = [];
-
-  // void searchDueVaccine(String age) async {
-  //   final result = await FirebaseFirestore.instance
-  //       .collection('Vaccines')
-  //       .where('from', isGreaterThanOrEqualTo: age)
-  //       .where('to', isGreaterThanOrEqualTo: age)
-  //       .get();
-
-  //   setState(() {
-  //     searchResult = result.docs.map((e) => e.data()).toList();
-  //   });
-  // }
-
-  // void getChild(String query) async {
-  //   final result = await FirebaseFirestore.instance
-  //       .collection('Child')
-  //       .where('email', isEqualTo: query)
-  //       .get();
-
-  //   setState(() {
-  //     child = result.docs.map((e) => e.data()).toList();
-  //   });
-  // }
 
   @override
   Widget build(BuildContext context) {
@@ -71,7 +47,7 @@ class HistoryScreen extends State<History> {
           BottomNavigationBarItem(
             label: "Vaccines Due",
             icon: Stack(children: [
-              Icon(Icons.vaccines_rounded),
+              const Icon(Icons.vaccines_rounded),
               Positioned(
                   top: -1.0,
                   right: -1.0,
@@ -96,7 +72,7 @@ class HistoryScreen extends State<History> {
               backgroundColor: Colors.pink),
         ],
         currentIndex: _selectedIndex,
-        selectedItemColor: Color.fromARGB(255, 212, 57, 145),
+        selectedItemColor: const Color.fromARGB(255, 212, 57, 145),
         onTap: _onItemTapped,
       ),
     );
@@ -126,5 +102,5 @@ class HistoryScreen extends State<History> {
     }
   }
 
-  int _selectedIndex = 0;
+  int _selectedIndex = 2;
 }

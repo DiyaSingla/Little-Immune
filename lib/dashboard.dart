@@ -146,6 +146,13 @@ class _dashboardState extends State<Dashboard> {
                     title: const Text('Vaccine Schedule'),
                     onTap: () {
                       Navigator.pop(context);
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => DueVaccineList(
+                                  email: widget.email,
+                                )),
+                      );
                       // Navigate to home screen
                     },
                   ),

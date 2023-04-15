@@ -1,6 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:little_immune/Screen/vaccine_list_screen.dart';
 import 'package:little_immune/history.dart';
 import '../missed_vaccine_list.dart';
 
@@ -13,73 +12,80 @@ class DueVaccineList extends StatefulWidget {
 }
 
 class DueVaccineListScreen extends State<DueVaccineList> {
-  List searchResult = [];
+  List<List<dynamic>> searchResult = [];
   List child = [];
+  String age = "";
+  List vaccines = [];
 
-  void searchDueVaccine(String age) async {
-    final result = await FirebaseFirestore.instance
-        .collection('Vaccines')
-        .where("dose", isEqualTo: age)
-        .get();
-
-    setState(() {
-      searchResult = result.docs.map((e) => e.data()).toList();
-    });
+  void initState() {
+    super.initState();
+    getSchedule(widget.email);
   }
 
-  void getChild(String query) async {
+  void getSchedule(String query) async {
     final result = await FirebaseFirestore.instance
         .collection('Child')
         .where('email', isEqualTo: query)
         .get();
 
-    setState(() {
-      child = result.docs.map((e) => e.data()).toList();
-    });
+    child = result.docs.map((e) => e.data()).toList();
+
+    for (int i = 0; i < child.length; i++) {
+      int days = DateTime.now().difference(child[i]['dob'].toDate()).inDays;
+      String query = CalculateAge(days);
+
+      final result2 = await FirebaseFirestore.instance
+          .collection('Vaccines')
+          .where('from', isLessThanOrEqualTo: query)
+          .get();
+
+      vaccines = result2.docs.map((e) => e.data()).toList();
+      searchResult.add(vaccines);
+    }
+  }
+
+  String CalculateAge(int days) {
+    if (days >= 365) {
+      age = '${days ~/ 365} years';
+    } else if (days >= 31) {
+      age = '${days ~/ 31} months';
+    } else if (days >= 7) {
+      age = '${days ~/ 7} weeks';
+    } else {
+      age = '$days days';
+    }
+    return age;
   }
 
   @override
   Widget build(BuildContext context) {
-    final size = MediaQuery.of(context).size;
-    getChild(widget.email);
-    searchDueVaccine("1 ml");
-
-    //code for due vaccine nikalne ka tarika
     return Scaffold(
       appBar: AppBar(
         title: const Text("Due Vaccines"),
         backgroundColor: Colors.pink,
       ),
-      body: Column(
-        children: [
-          Expanded(
-            child: ListView.builder(
-              itemCount: searchResult.length,
-              itemBuilder: (context, idx) {
-                // return VaccineList(
-                //   record: searchResult,
-                //   index: index,
-                // );
-                return CheckboxListTile(
-                  title: Text(searchResult[idx]),
-                  value: false,
-                  onChanged: (bool? isChecked) {
-                    _itemChecked(isChecked!, searchResult[idx]);
-                    if (isChecked == false) {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) =>
-                              VaccineList(record: searchResult, index: idx),
-                        ),
-                      );
-                    }
-                  },
-                );
-              },
-            ),
-          ),
-        ],
+      body: ListView.builder(
+        itemCount: searchResult.length,
+        itemBuilder: (context, index1) {
+          return ListView.builder(
+            shrinkWrap: true,
+            physics: ClampingScrollPhysics(),
+            itemCount: searchResult[index1].length,
+            itemBuilder: (context, index2) {
+              return ListTile(
+                trailing: Text(child[index1]['name']),
+                title: Text(
+                    '${searchResult[index1][index2]['name']}'), // Access the map data by key
+                subtitle: Text((searchResult[index1][index2]['from'] ==
+                        searchResult[index1][index2]['to'])
+                    ? '${searchResult[index1][index2]['from']}'
+                    : '${searchResult[index1][index2]['from']}'
+                        ' to '
+                        '${searchResult[index1][index2]['to']}'), // Access the map data by key
+              );
+            },
+          );
+        },
       ),
       bottomNavigationBar: BottomNavigationBar(
         items: [
@@ -145,7 +151,7 @@ class DueVaccineListScreen extends State<DueVaccineList> {
   int _selectedIndex = 0;
 
   List taken = [];
-  void _itemChecked(bool isChecked, String item) {
+  void _itemChecked(bool isChecked, List item) {
     setState(() {
       if (isChecked) {
         taken.add(item);
