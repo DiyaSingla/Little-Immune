@@ -46,6 +46,7 @@ dependencies:
   firebase_messaging: ^14.4.0
   flutter_datetime_picker: ^1.5.1
   shared_preferences: ^2.1.0
+  mailer: ^5.0.2
 
 dev_dependencies:
   flutter_test:

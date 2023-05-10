@@ -36,7 +36,7 @@ class _ChildListPageState extends State<ChildListPage> {
         title: const Text('Child List'),
         backgroundColor: const Color.fromARGB(255, 238, 74, 128),
         leading: IconButton(
-            onPressed: () => Navigator.pushReplacement(
+            onPressed: () => Navigator.push(
                 context,
                 MaterialPageRoute(
                     builder: (context) => Dashboard(

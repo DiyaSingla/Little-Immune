@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:little_immune/Screen/vaccine_list_screen.dart';
+import 'package:little_immune/dashboard.dart';
 import 'package:little_immune/util/due_vaccine_list.dart';
 
 import 'missed_vaccine_list.dart';
@@ -24,9 +25,18 @@ class HistoryScreen extends State<History> {
     //code for due vaccine nikalne ka tarika
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Vaccine Taken"),
-        backgroundColor: Colors.pink,
-      ),
+          title: const Text("Vaccine Taken"),
+          backgroundColor: Colors.pink,
+          leading: IconButton(
+              onPressed: () => Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => Dashboard(
+                            email: widget.email,
+                          ))),
+              // Navigate to about screen
+
+              icon: const Icon(Icons.arrow_back))),
       body: Column(
         children: [
           Expanded(

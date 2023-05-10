@@ -87,9 +87,30 @@ class _SignUpState extends State<SignUp> {
                     });
                   }
                 }),
+                signInOption(),
               ],
             ),
           ))),
+    );
+  }
+
+  Row signInOption() {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        const Text("Already have an account? ",
+            style: TextStyle(color: Colors.white70)),
+        GestureDetector(
+          onTap: () {
+            Navigator.push(context,
+                MaterialPageRoute(builder: (context) => const SignIn()));
+          },
+          child: const Text(
+            "Sign In",
+            style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+          ),
+        )
+      ],
     );
   }
 

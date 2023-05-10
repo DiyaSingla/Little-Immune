@@ -1,10 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:little_immune/dashboard.dart';
-import 'package:firebase_messaging/firebase_messaging.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+//import 'package:firebase_messaging/firebase_messaging.dart';
+//import 'package:shared_preferences/shared_preferences.dart';
+//import 'package:mailer/mailer.dart';
+//import 'package:mailer/smtp_server.dart';
 
-class Notifications extends StatelessWidget {
-  Future<void> firebaseMessagingBackgroundHandler(RemoteMessage message) async {
+
+
+
+
+
+/*class Notifications extends StatelessWidget {
+  /*Future<void> firebaseMessagingBackgroundHandler(RemoteMessage message) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     await prefs.setString('messageId', message.messageId!);
 
@@ -13,9 +20,9 @@ class Notifications extends StatelessWidget {
         .add('${message.notification!.title}: ${message.notification!.body}');
 
     await prefs.setStringList('notifications', notifications);
-  }
+  }*/
 
-  void noti() async {
+  /*void noti() async {
     FirebaseMessaging messaging = FirebaseMessaging.instance;
     messaging.setAutoInitEnabled(true);
     FirebaseMessaging.onBackgroundMessage(
@@ -38,16 +45,16 @@ class Notifications extends StatelessWidget {
         print('Message also contained a notification: ${message.notification}');
       }
     });
-  }
+  }*/
 
-  List<String> notifications = [];
+  /*List<String> notifications = [];
   Notifications({super.key, required this.email});
   final String email;
   @override
   Widget build(BuildContext context) {
-    noti();
+    //noti();
     return Scaffold(
-      backgroundColor: const Color.fromARGB(255, 236, 129, 165),
+      backgroundColor: Colors.white,
       appBar: AppBar(
           backgroundColor: const Color.fromARGB(255, 250, 97, 148),
           title: const Text('Notification'),
@@ -82,5 +89,5 @@ class Notifications extends StatelessWidget {
         ),
       ),
     );
-  }
-}
+  }*/
+}*/

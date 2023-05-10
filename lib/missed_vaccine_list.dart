@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:little_immune/dashboard.dart';
 import 'package:little_immune/history.dart';
 import 'package:little_immune/util/due_vaccine_list.dart';
 
@@ -61,9 +62,18 @@ class MissedVaccineListScreen extends State<MissedVaccineList> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Missed Vaccines"),
-        backgroundColor: Colors.pink,
-      ),
+          title: const Text("Missed Vaccines"),
+          backgroundColor: Colors.pink,
+          leading: IconButton(
+              onPressed: () => Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => Dashboard(
+                            email: widget.email,
+                          ))),
+              // Navigate to about screen
+
+              icon: const Icon(Icons.arrow_back))),
       body: ListView.builder(
         itemCount: searchResult.length,
         itemBuilder: (context, index1) {

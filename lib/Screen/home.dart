@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:little_immune/Screen/Notificationformat.dart';
 import 'package:little_immune/Screen/childInfo.dart';
 import 'package:little_immune/vaccine_search.dart';
 import 'package:little_immune/util/vaccineTile.dart';
@@ -13,8 +14,13 @@ class Home extends StatelessWidget {
     return Scaffold(
       body: ListView(
         children: [
+          const SizedBox(
+            height: 20,
+            width: 40,
+          ),
+          NotificationFormat(email: email),
           Container(
-            padding: const EdgeInsets.only(top: 20, left: 40, right: 40),
+            padding: const EdgeInsets.only(top: 30, left: 40, right: 40),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [

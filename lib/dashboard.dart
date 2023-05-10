@@ -31,14 +31,14 @@ class _dashboardState extends State<Dashboard> {
                   )));
     }
 
-    if (index == 2) {
+    /*if (index == 2) {
       Navigator.pushReplacement(
           context,
           MaterialPageRoute(
               builder: (context) => Notifications(
                     email: widget.email,
                   )));
-    }
+    }*/
   }
 
   int _selectedIndex = 0;
@@ -180,7 +180,7 @@ class _dashboardState extends State<Dashboard> {
                                 "Signed out"), // Duration for which the snackbar will be visible
                           ),
                         );
-                        Navigator.pushReplacement(
+                        Navigator.push(
                             context,
                             MaterialPageRoute(
                                 builder: (context) => const SignIn()));
@@ -193,16 +193,16 @@ class _dashboardState extends State<Dashboard> {
           ),
         ),
         bottomNavigationBar: BottomNavigationBar(
-          items: [
-            const BottomNavigationBarItem(
+          items: const [
+            BottomNavigationBarItem(
                 label: 'Home',
                 icon: Icon(Icons.home),
                 backgroundColor: Colors.pink),
-            const BottomNavigationBarItem(
+            BottomNavigationBarItem(
               label: 'Due Vaccine',
               icon: Icon(Icons.vaccines),
             ),
-            BottomNavigationBarItem(
+            /*BottomNavigationBarItem(
               label: "Notification",
               icon: Stack(children: [
                 const Icon(Icons.favorite),
@@ -219,7 +219,7 @@ class _dashboardState extends State<Dashboard> {
                       ],
                     )),
               ]),
-            ),
+            ),*/
           ],
           currentIndex: _selectedIndex,
           selectedItemColor: const Color.fromARGB(255, 212, 57, 145),
