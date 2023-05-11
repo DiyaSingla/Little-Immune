@@ -15,7 +15,7 @@ class MissedVaccineList extends StatefulWidget {
 class MissedVaccineListScreen extends State<MissedVaccineList> {
   List<List<dynamic>> searchResult = [];
   List child = [];
-  String age = "";
+  int days = 0;
   List vaccines = [];
 
   void initState() {
@@ -31,31 +31,39 @@ class MissedVaccineListScreen extends State<MissedVaccineList> {
 
     child = result.docs.map((e) => e.data()).toList();
 
+    final result2 =
+        await FirebaseFirestore.instance.collection('Vaccines').get();
+
+    vaccines = result2.docs.map((e) => e.data()).toList();
+
     for (int i = 0; i < child.length; i++) {
-      int days = DateTime.now().difference(child[i]['dob'].toDate()).inDays;
-      String query = CalculateAge(days);
+      int age = DateTime.now().difference(child[i]['dob'].toDate()).inDays;
+      List res = [];
 
-      final result2 = await FirebaseFirestore.instance
-          .collection('Vaccines')
-          .where('to', isGreaterThan: query)
-          .get();
+      for (var rec in vaccines) {
+        int time = CalculateDays(rec['from']);
+        if (age > time) {
+          res.add(rec);
+        }
+      }
 
-      vaccines = result2.docs.map((e) => e.data()).toList();
-      searchResult.add(vaccines);
+      searchResult.add(res);
     }
   }
 
-  String CalculateAge(int days) {
-    if (days >= 365) {
-      age = '${days ~/ 365} years';
-    } else if (days >= 31) {
-      age = '${days ~/ 31} months';
-    } else if (days >= 7) {
-      age = '${days ~/ 7} weeks';
-    } else {
-      age = '$days days';
+  int CalculateDays(String time) {
+    if (time.startsWith("At")) {
+      return 0;
     }
-    return age;
+    List lst = time.split(" ");
+    if (lst[1] == "years") {
+      days = 365 * int.parse(lst[0]);
+    } else if (lst[1] == "months") {
+      days = 31 * int.parse(lst[0]);
+    } else if (lst[1] == "weeks") {
+      days = 7 * int.parse(lst[0]);
+    }
+    return days;
   }
 
   @override

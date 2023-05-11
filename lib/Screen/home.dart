@@ -63,7 +63,7 @@ class Home extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: const [
                 Text(
-                  'Child Added',
+                  'Child Section',
                   selectionColor: Colors.black,
                   style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
                 ),

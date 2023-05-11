@@ -16,6 +16,7 @@ class ChildListPage extends StatefulWidget {
 class _ChildListPageState extends State<ChildListPage> {
   List searchResult = [];
   String age = "";
+  int days = 0;
 
   void searchChild(String query) async {
     final result = await FirebaseFirestore.instance
@@ -50,7 +51,7 @@ class _ChildListPageState extends State<ChildListPage> {
           String name = searchResult[index]['name'];
           Timestamp dob = searchResult[index]['dob'];
           String gender = searchResult[index]['gender'];
-          int days = DateTime.now().difference(dob.toDate()).inDays;
+          days = DateTime.now().difference(dob.toDate()).inDays;
           CalculateAge(days);
           return Card(
             surfaceTintColor: Color.fromARGB(255, 252, 145, 181),
@@ -89,7 +90,7 @@ class _ChildListPageState extends State<ChildListPage> {
                     builder: (context) => ChildVaccinationSchedulePage(
                       list: searchResult,
                       index: index,
-                      age: age,
+                      days: days,
                     ),
                   ),
                 );
@@ -116,10 +117,10 @@ class _ChildListPageState extends State<ChildListPage> {
 
 class ChildVaccinationSchedulePage extends StatefulWidget {
   ChildVaccinationSchedulePage(
-      {super.key, required this.list, required this.index, required this.age});
+      {super.key, required this.list, required this.index, required this.days});
   final List list;
   final int index;
-  final String age;
+  final int days;
 
   State<ChildVaccinationSchedulePage> createState() =>
       VaccinationScheduleScreen();
@@ -127,25 +128,42 @@ class ChildVaccinationSchedulePage extends StatefulWidget {
 
 class VaccinationScheduleScreen extends State<ChildVaccinationSchedulePage> {
   List searchResult = [];
+  List dueVaccine = [];
 
   void initState() {
     super.initState();
-    searchDueVaccine(widget.age);
+    searchDueVaccine(widget.days);
   }
 
-  void searchDueVaccine(String age) async {
-    final result = await FirebaseFirestore.instance
-        .collection('Vaccines')
-        .where("from", isGreaterThanOrEqualTo: age)
-        .where('from', isNotEqualTo: "At Birth")
-        .orderBy(
-          'from',
-        )
-        .get();
+  void searchDueVaccine(int days) async {
+    final result =
+        await FirebaseFirestore.instance.collection('Vaccines').get();
 
     setState(() {
       searchResult = result.docs.map((e) => e.data()).toList();
+      for (var rec in searchResult) {
+        int time = CalculateDays(rec['from']);
+        if (days <= time) {
+          dueVaccine.add(rec);
+        }
+      }
     });
+  }
+
+  int CalculateDays(String time) {
+    if (time.startsWith("At")) {
+      return 5;
+    }
+    List lst = time.split(" ");
+    int days = 0;
+    if (lst[1] == "years") {
+      days = 365 * int.parse(lst[0]);
+    } else if (lst[1] == "months") {
+      days = 31 * int.parse(lst[0]);
+    } else if (lst[1] == "weeks") {
+      days = 7 * int.parse(lst[0]);
+    }
+    return days;
   }
 
   @override
@@ -156,10 +174,10 @@ class VaccinationScheduleScreen extends State<ChildVaccinationSchedulePage> {
             'Vaccination Schedule for ' + widget.list[widget.index]['name']),
       ),
       body: ListView.builder(
-        itemCount: searchResult.length,
+        itemCount: dueVaccine.length,
         itemBuilder: (context, index) {
           return VaccineList(
-            record: searchResult,
+            record: dueVaccine,
             index: index,
           );
         },
