@@ -90,8 +90,19 @@ class MissedVaccineListScreen extends State<MissedVaccineList> {
             physics: ClampingScrollPhysics(),
             itemCount: searchResult[index1].length,
             itemBuilder: (context, index2) {
-              return ListTile(
-                trailing: Text(child[index1]['name']),
+              return CheckboxListTile(
+                value:false,
+                onChanged: (value){
+                         setState(() {
+            if (true) {
+              // Remove the vaccine reminder from the current list and add it to the vaccine taken list
+               taken.add(searchResult[index1][index2]);
+               searchResult[index1].removeAt(index2);
+                }
+                });
+                },
+              controlAffinity: ListTileControlAffinity.leading,
+                secondary: Text(child[index1]['name']),
                 title: Text(
                     '${searchResult[index1][index2]['name']}'), // Access the map data by key
                 subtitle: Text((searchResult[index1][index2]['from'] ==
@@ -104,7 +115,7 @@ class MissedVaccineListScreen extends State<MissedVaccineList> {
             },
           );
         },
-      ),
+      ),  
       bottomNavigationBar: BottomNavigationBar(
         items: [
           BottomNavigationBarItem(
@@ -138,7 +149,7 @@ class MissedVaccineListScreen extends State<MissedVaccineList> {
         selectedItemColor: Color.fromARGB(255, 212, 57, 145),
         onTap: _onItemTapped,
       ),
-    );
+      );
   }
 
   void _onItemTapped(int number) {
