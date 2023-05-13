@@ -30,14 +30,9 @@ class _dashboardState extends State<Dashboard> {
                   )));
     }
 
-    /*if (index == 2) {
-      Navigator.pushReplacement(
-          context,
-          MaterialPageRoute(
-              builder: (context) => Notifications(
-                    email: widget.email,
-                  )));
-    }*/
+    if (index == 2) {
+      //bot info
+    }
   }
 
   int _selectedIndex = 0;
@@ -192,7 +187,7 @@ class _dashboardState extends State<Dashboard> {
           ),
         ),
         bottomNavigationBar: BottomNavigationBar(
-          items: const [
+          items: [
             BottomNavigationBarItem(
                 label: 'Home',
                 icon: Icon(Icons.home),
@@ -201,10 +196,10 @@ class _dashboardState extends State<Dashboard> {
               label: 'Due Vaccine',
               icon: Icon(Icons.vaccines),
             ),
-            /*BottomNavigationBarItem(
-              label: "Notification",
+            BottomNavigationBarItem(
+              label: "BoostBot",
               icon: Stack(children: [
-                const Icon(Icons.favorite),
+                const Icon(Icons.question_answer),
                 Positioned(
                     top: -1.0,
                     right: -1.0,
@@ -213,12 +208,12 @@ class _dashboardState extends State<Dashboard> {
                         Icon(
                           Icons.brightness_1,
                           size: 12.0,
-                          color: Color(0xFF2845E7),
+                          color: Color.fromARGB(255, 250, 97, 148),
                         ),
                       ],
                     )),
               ]),
-            ),*/
+            ),
           ],
           currentIndex: _selectedIndex,
           selectedItemColor: const Color.fromARGB(255, 212, 57, 145),
