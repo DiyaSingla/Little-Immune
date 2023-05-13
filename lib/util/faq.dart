@@ -35,7 +35,7 @@ class FrequentlyAsked extends StatelessWidget {
     {
       'question': 'Can my child still get a disease if they are vaccinated?',
       'answer':
-          'n No vaccine is 100% effective, but vaccination greatly reduces the likelihood of contracting a disease. Even if a vaccinated child does get sick, the illness is likely to be milder than it would be in an unvaccinated child. \n'
+          '\n No vaccine is 100% effective, but vaccination greatly reduces the likelihood of contracting a disease. Even if a vaccinated child does get sick, the illness is likely to be milder than it would be in an unvaccinated child. \n'
     },
     {
       'question': 'Can my child get multiple vaccines at once?',

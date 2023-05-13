@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:little_immune/Screen/home.dart';
+import 'package:little_immune/chat_screen.dart';
 import 'package:little_immune/signin.dart';
 import 'package:little_immune/util/due_vaccine_list.dart';
 import 'package:little_immune/util/faq.dart';
@@ -31,7 +32,8 @@ class _dashboardState extends State<Dashboard> {
     }
 
     if (index == 2) {
-      //bot info
+      Navigator.pushReplacement(
+          context, MaterialPageRoute(builder: (context) => ChatBotScreen()));
     }
   }
 

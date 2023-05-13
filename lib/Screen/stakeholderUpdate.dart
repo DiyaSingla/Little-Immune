@@ -113,7 +113,7 @@ class _VaccineUpdateScreenState extends State<VaccineUpdateScreen> {
               child: TextField(
                 controller: _doseDateFromController,
                 decoration: InputDecoration(
-                  labelText: 'Dose Date From',
+                  labelText: 'Dose From',
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(10.0),
                   ),
@@ -124,7 +124,7 @@ class _VaccineUpdateScreenState extends State<VaccineUpdateScreen> {
               child: TextField(
                 controller: _doseDateAfterController,
                 decoration: InputDecoration(
-                  labelText: 'Dose Date After',
+                  labelText: 'Dose After',
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(10.0),
                   ),
