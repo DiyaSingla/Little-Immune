@@ -1,11 +1,80 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:little_immune/util/VaccineNotificationInfo.dart';
 import '../util/appLayout.dart';
-import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 
-class NotificationFormat extends StatelessWidget {
-  const NotificationFormat({super.key, required this.email});
-  final String email;
+class NotificationFormat extends StatefulWidget {
+  NotificationFormat({super.key, required this.email});
+  String email;
+  State<NotificationFormat> createState() => notificationText();
+}
+
+class notificationText extends State<NotificationFormat> {
+  List child = [];
+  List vaccines = [];
+  int days = 0;
+  int min = 100000;
+  String vaccine = '';
+  String kid = '';
+  String message = '';
+
+  void init() {
+    super.initState();
+  }
+
+  Future<void> getSchedule(String query) async {
+    final result = await FirebaseFirestore.instance
+        .collection('Child')
+        .where('email', isEqualTo: query)
+        .get();
+
+    child = result.docs.map((e) => e.data()).toList();
+
+    final result2 =
+        await FirebaseFirestore.instance.collection('Vaccines').get();
+
+    vaccines = result2.docs.map((e) => e.data()).toList();
+
+    for (int i = 0; i < child.length; i++) {
+      int age = DateTime.now().difference(child[i]['dob'].toDate()).inDays;
+      List res = [];
+
+      for (var rec in vaccines) {
+        int time = CalculateDays(rec['from']);
+        if (age <= time) {
+          res.add(rec);
+          int DaysLeft = time - age;
+          if (DaysLeft < min) {
+            min = DaysLeft;
+            vaccine = rec['name'];
+            kid = child[i]['name'];
+          }
+        }
+      }
+      // ignore: prefer_interpolation_to_compose_strings
+      message = vaccine +
+          ' Vaccine due for ' +
+          kid +
+          " in " +
+          min.toString() +
+          " days!";
+    }
+    return null;
+  }
+
+  int CalculateDays(String time) {
+    if (time.startsWith("At")) {
+      return 5;
+    }
+    List lst = time.split(" ");
+    if (lst[1] == "years") {
+      days = 365 * int.parse(lst[0]);
+    } else if (lst[1] == "months") {
+      days = 31 * int.parse(lst[0]);
+    } else if (lst[1] == "weeks") {
+      days = 7 * int.parse(lst[0]);
+    }
+    return days;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -13,56 +82,67 @@ class NotificationFormat extends StatelessWidget {
     return SizedBox(
       width: size.width * 0.3,
       height: 100,
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Flexible(
-                child: Stack(
+      child: FutureBuilder<void>(
+        future: getSchedule(widget.email),
+        builder: (BuildContext context, AsyncSnapshot<void> snapshot) {
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return Center(child: CircularProgressIndicator());
+          } else if (snapshot.hasError) {
+            return Center(child: Text('Error: ${snapshot.error}'));
+          } else {
+            return Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Container(
-                      padding: const EdgeInsets.only(top: 40, left: 70),
-                      height: 90,
-                      decoration: const BoxDecoration(
-                        color: Color.fromARGB(255, 250, 97, 148),
-                      ),
-                    ),
-                    SizedBox(
-                      height: 10,
-                    ),
-                    Row(mainAxisAlignment: MainAxisAlignment.center, children: [
-                      Padding(padding: EdgeInsets.only(top: 70)),
-                      Flexible(
-                        child: Container(
-                          width: 1000,
-                          height: 70,
-                          color: Color.fromARGB(232, 118, 216, 14),
-                          child: const Align(
-                            alignment: Alignment.center,
-                            child: Text(
-                              'Notification',
-                              maxLines: 3,
-                              textAlign: TextAlign.center,
-                              style: TextStyle(
-                                fontSize: 20,
-                              ),
+                    Flexible(
+                      child: Stack(
+                        children: [
+                          Container(
+                            padding: const EdgeInsets.only(top: 40, left: 70),
+                            height: 90,
+                            decoration: const BoxDecoration(
+                              color: Color.fromARGB(255, 250, 97, 148),
                             ),
                           ),
-                        ),
+                          const SizedBox(
+                            height: 10,
+                          ),
+                          Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Padding(padding: EdgeInsets.only(top: 70)),
+                                Flexible(
+                                  child: Container(
+                                    width: 1000,
+                                    height: 70,
+                                    color: Color.fromARGB(232, 118, 216, 14),
+                                    child: Align(
+                                      alignment: Alignment.center,
+                                      child: Text(
+                                        message,
+                                        maxLines: 3,
+                                        textAlign: TextAlign.center,
+                                        style: const TextStyle(
+                                          fontSize: 20,
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              ]),
+                        ],
                       ),
-                    ]),
+                    ),
                   ],
                 ),
-              ),
-            ],
-          ),
-        ],
+              ],
+            );
+          }
+        },
       ),
     );
-    // TODO: implement build
-    throw UnimplementedError();
   }
 }
 

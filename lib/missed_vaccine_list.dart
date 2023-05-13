@@ -41,7 +41,7 @@ class MissedVaccineListScreen extends State<MissedVaccineList> {
       List res = [];
 
       for (var rec in vaccines) {
-        int time = CalculateDays(rec['from']);
+        int time = CalculateDays(rec['to']);
         if (age > time) {
           res.add(rec);
         }
@@ -91,17 +91,17 @@ class MissedVaccineListScreen extends State<MissedVaccineList> {
             itemCount: searchResult[index1].length,
             itemBuilder: (context, index2) {
               return CheckboxListTile(
-                value:false,
-                onChanged: (value){
-                         setState(() {
-            if (true) {
-              // Remove the vaccine reminder from the current list and add it to the vaccine taken list
-               taken.add(searchResult[index1][index2]);
-               searchResult[index1].removeAt(index2);
-                }
-                });
+                value: false,
+                onChanged: (value) {
+                  setState(() {
+                    if (true) {
+                      // Remove the vaccine reminder from the current list and add it to the vaccine taken list
+                      taken.add(searchResult[index1][index2]);
+                      searchResult[index1].removeAt(index2);
+                    }
+                  });
                 },
-              controlAffinity: ListTileControlAffinity.leading,
+                controlAffinity: ListTileControlAffinity.leading,
                 secondary: Text(child[index1]['name']),
                 title: Text(
                     '${searchResult[index1][index2]['name']}'), // Access the map data by key
@@ -115,7 +115,7 @@ class MissedVaccineListScreen extends State<MissedVaccineList> {
             },
           );
         },
-      ),  
+      ),
       bottomNavigationBar: BottomNavigationBar(
         items: [
           BottomNavigationBarItem(
@@ -149,7 +149,7 @@ class MissedVaccineListScreen extends State<MissedVaccineList> {
         selectedItemColor: Color.fromARGB(255, 212, 57, 145),
         onTap: _onItemTapped,
       ),
-      );
+    );
   }
 
   void _onItemTapped(int number) {

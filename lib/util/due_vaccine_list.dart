@@ -39,18 +39,19 @@ class DueVaccineListScreen extends State<DueVaccineList> {
 
     for (int i = 0; i < child.length; i++) {
       int age = DateTime.now().difference(child[i]['dob'].toDate()).inDays;
-      //List query = CalculateAge(days).split(" ");
       List res = [];
 
       for (var rec in vaccines) {
         int time = CalculateDays(rec['from']);
         if (age <= time) {
+          rec['left'] = time - age;
           res.add(rec);
         }
       }
 
       searchResult.add(res);
     }
+    //earchResult.sort((a,b) => int.parse(a['left']).compare(b['left']));
   }
 
   int CalculateDays(String time) {
