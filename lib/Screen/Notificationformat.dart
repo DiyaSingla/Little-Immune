@@ -51,7 +51,7 @@ class notificationText extends State<NotificationFormat> {
         }
       }
       // ignore: prefer_interpolation_to_compose_strings
-      message = (kid.isEmpty)
+      message = (child.length == 0)
           ? "No due vaccines!"
           : vaccine +
               ' Vaccine due for ' +

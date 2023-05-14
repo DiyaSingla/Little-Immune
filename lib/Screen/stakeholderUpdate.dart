@@ -135,7 +135,14 @@ class _VaccineUpdateScreenState extends State<VaccineUpdateScreen> {
             SizedBox(height: 16.0),
             MaterialButton(
               color: const Color.fromARGB(255, 250, 97, 148),
-              onPressed: _updateVaccineInformation,
+              onPressed: () {
+                Navigator.pop(context);
+                // If the form is valid, display a snackbar. In the real world,
+                // you'd often call a server or save the information in a database.
+                ScaffoldMessenger.of(context).showSnackBar(
+                  const SnackBar(content: Text('Vaccine Updated')),
+                );
+              },
               child: Text('Update'),
             ),
           ],
@@ -143,11 +150,4 @@ class _VaccineUpdateScreenState extends State<VaccineUpdateScreen> {
       ),
     );
   }
-}
-
-void main() {
-  runApp(MaterialApp(
-    debugShowCheckedModeBanner: false,
-    home: VaccineUpdateScreen(),
-  ));
 }

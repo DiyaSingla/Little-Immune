@@ -8,12 +8,12 @@ class VaccineForm extends StatefulWidget {
 
 class _VaccineFormState extends State<VaccineForm> {
   final _formKey = GlobalKey<FormState>();
-  late String _vaccineName;
-  late String _dose;
-  late String _From;
-  late String _To;
-  late List<dynamic> _diseases;
-  //late List<dynamic> _StrindID;
+  final _vaccineName = TextEditingController();
+  final _dose = TextEditingController();
+  final _From = TextEditingController();
+  final _To = TextEditingController();
+  final _diseases = TextEditingController();
+  //final List<dynamic> _StrindID;
 
   @override
   Widget build(BuildContext context) {
@@ -38,6 +38,7 @@ class _VaccineFormState extends State<VaccineForm> {
               SizedBox(height: 16.0),
               Flexible(
                 child: TextFormField(
+                  controller: _vaccineName,
                   decoration: InputDecoration(
                     labelText: 'Vaccine Name',
                     border: OutlineInputBorder(
@@ -45,43 +46,35 @@ class _VaccineFormState extends State<VaccineForm> {
                     ),
                   ),
                   validator: (value) {
-                    if (value!.isEmpty) {
-                      return 'Please enter the vaccine name';
+                    if (value == null || value.isEmpty) {
+                      return 'Please enter a value';
                     }
                     return null;
-                  },
-                  onSaved: (value) {
-                    _vaccineName = value!;
-                    // for(var i in _vaccineName){
-                    //   _StrindID.add(i);
-                    // }
                   },
                 ),
               ),
 
               Flexible(
                 child: TextFormField(
+                  controller: _dose,
                   decoration: InputDecoration(
                     labelText: 'Dose',
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(10.0),
                     ),
                   ),
-                  keyboardType: TextInputType.number,
                   validator: (value) {
-                    if (value!.isEmpty) {
-                      return 'Please enter the dose';
+                    if (value == null || value.isEmpty) {
+                      return 'Please enter a value';
                     }
                     return null;
-                  },
-                  onSaved: (value) {
-                    _dose = value!;
                   },
                 ),
               ),
 
               Flexible(
                 child: TextFormField(
+                  controller: _From,
                   decoration: InputDecoration(
                     labelText: 'Dose From',
                     border: OutlineInputBorder(
@@ -89,18 +82,16 @@ class _VaccineFormState extends State<VaccineForm> {
                     ),
                   ),
                   validator: (value) {
-                    if (value!.isEmpty) {
-                      return 'Please enter the dose from';
+                    if (value == null || value.isEmpty) {
+                      return 'Please enter a value';
                     }
                     return null;
-                  },
-                  onSaved: (value) {
-                    _From = value!;
                   },
                 ),
               ),
               Flexible(
                 child: TextFormField(
+                  controller: _To,
                   decoration: InputDecoration(
                     labelText: 'Dose To',
                     border: OutlineInputBorder(
@@ -108,18 +99,16 @@ class _VaccineFormState extends State<VaccineForm> {
                     ),
                   ),
                   validator: (value) {
-                    if (value!.isEmpty) {
-                      return 'Please enter the dose to';
+                    if (value == null || value.isEmpty) {
+                      return 'Please enter a value';
                     }
                     return null;
-                  },
-                  onSaved: (value) {
-                    _To = value!;
                   },
                 ),
               ),
               Flexible(
                 child: TextFormField(
+                  controller: _diseases,
                   decoration: InputDecoration(
                     labelText: 'Diseases (separated by comma)',
                     border: OutlineInputBorder(
@@ -127,13 +116,10 @@ class _VaccineFormState extends State<VaccineForm> {
                     ),
                   ),
                   validator: (value) {
-                    if (value!.isEmpty) {
-                      return 'Please enter the diseases';
+                    if (value == null || value.isEmpty) {
+                      return 'Please enter a value';
                     }
                     return null;
-                  },
-                  onSaved: (value) {
-                    _diseases = (value!).split(",");
                   },
                 ),
               ),
@@ -144,18 +130,18 @@ class _VaccineFormState extends State<VaccineForm> {
                 onPressed: () {
                   if (_formKey.currentState!.validate()) {
                     final user = User(
-                      name: _vaccineName,
-                      from: _From,
-                      to: _To,
-                      dose: _dose,
-                      diseases: _diseases,
+                      name: _vaccineName.text,
+                      from: _From.text,
+                      to: _To.text,
+                      dose: _dose.text,
+                      diseases: _diseases.text.split(","),
                     );
                     createUser(user);
                     Navigator.pop(context);
                     // If the form is valid, display a snackbar. In the real world,
                     // you'd often call a server or save the information in a database.
                     ScaffoldMessenger.of(context).showSnackBar(
-                      const SnackBar(content: Text('Child Added')),
+                      const SnackBar(content: Text('Vaccine Added')),
                     );
                   }
                 },
@@ -169,15 +155,15 @@ class _VaccineFormState extends State<VaccineForm> {
   }
 }
 
-void main() {
+/*void main() {
   runApp(MaterialApp(
     debugShowCheckedModeBanner: false,
     home: VaccineForm(),
   ));
-}
+}*/
 
 Future createUser(User user) async {
-  final docUser = FirebaseFirestore.instance.collection('Vaccine').doc();
+  final docUser = FirebaseFirestore.instance.collection('Vaccines').doc();
   user.id = docUser.id;
   final json = user.toJson();
   await docUser.set(json);
