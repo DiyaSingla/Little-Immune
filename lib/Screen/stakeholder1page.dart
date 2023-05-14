@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
 class VaccineForm extends StatefulWidget {
@@ -8,16 +9,18 @@ class VaccineForm extends StatefulWidget {
 class _VaccineFormState extends State<VaccineForm> {
   final _formKey = GlobalKey<FormState>();
   late String _vaccineName;
-  late int _dose;
-  late int _doseFrom;
-  late int _doseTo;
+  late String _dose;
+  late String _From;
+  late String _To;
+  late List<dynamic> _diseases;
+  //late List<dynamic> _StrindID;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: const Color.fromARGB(255, 250, 97, 148),
-        title: Text('Vaccine Form'),
+        title: Text('Add Vaccine Form'),
       ),
       body: Padding(
         padding: EdgeInsets.all(16.0),
@@ -49,6 +52,9 @@ class _VaccineFormState extends State<VaccineForm> {
                   },
                   onSaved: (value) {
                     _vaccineName = value!;
+                    // for(var i in _vaccineName){
+                    //   _StrindID.add(i);
+                    // }
                   },
                 ),
               ),
@@ -69,7 +75,7 @@ class _VaccineFormState extends State<VaccineForm> {
                     return null;
                   },
                   onSaved: (value) {
-                    _dose = int.parse(value!);
+                    _dose = value!;
                   },
                 ),
               ),
@@ -82,7 +88,6 @@ class _VaccineFormState extends State<VaccineForm> {
                       borderRadius: BorderRadius.circular(10.0),
                     ),
                   ),
-                  keyboardType: TextInputType.number,
                   validator: (value) {
                     if (value!.isEmpty) {
                       return 'Please enter the dose from';
@@ -90,7 +95,7 @@ class _VaccineFormState extends State<VaccineForm> {
                     return null;
                   },
                   onSaved: (value) {
-                    _doseFrom = int.parse(value!);
+                    _From = value!;
                   },
                 ),
               ),
@@ -102,7 +107,6 @@ class _VaccineFormState extends State<VaccineForm> {
                       borderRadius: BorderRadius.circular(10.0),
                     ),
                   ),
-                  keyboardType: TextInputType.number,
                   validator: (value) {
                     if (value!.isEmpty) {
                       return 'Please enter the dose to';
@@ -110,7 +114,26 @@ class _VaccineFormState extends State<VaccineForm> {
                     return null;
                   },
                   onSaved: (value) {
-                    _doseTo = int.parse(value!);
+                    _To = value!;
+                  },
+                ),
+              ),
+              Flexible(
+                child: TextFormField(
+                  decoration: InputDecoration(
+                    labelText: 'Diseases (separated by comma)',
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(10.0),
+                    ),
+                  ),
+                  validator: (value) {
+                    if (value!.isEmpty) {
+                      return 'Please enter the diseases';
+                    }
+                    return null;
+                  },
+                  onSaved: (value) {
+                    _diseases = (value!).split(",");
                   },
                 ),
               ),
@@ -120,13 +143,20 @@ class _VaccineFormState extends State<VaccineForm> {
                 color: const Color.fromARGB(255, 250, 97, 148),
                 onPressed: () {
                   if (_formKey.currentState!.validate()) {
-                    _formKey.currentState!.save();
-                    // Process the form data, e.g., save it to a database
-                    // or pass it to a function for further processing.
-                    print('Vaccine Name: $_vaccineName');
-                    print('Dose: $_dose');
-                    print('Dose From: $_doseFrom');
-                    print('Dose To: $_doseTo');
+                    final user = User(
+                      name: _vaccineName,
+                      from: _From,
+                      to: _To,
+                      dose: _dose,
+                      diseases: _diseases,
+                    );
+                    createUser(user);
+                    Navigator.pop(context);
+                    // If the form is valid, display a snackbar. In the real world,
+                    // you'd often call a server or save the information in a database.
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      const SnackBar(content: Text('Child Added')),
+                    );
                   }
                 },
                 child: Text('Submit'),
@@ -144,4 +174,40 @@ void main() {
     debugShowCheckedModeBanner: false,
     home: VaccineForm(),
   ));
+}
+
+Future createUser(User user) async {
+  final docUser = FirebaseFirestore.instance.collection('Vaccine').doc();
+  user.id = docUser.id;
+  final json = user.toJson();
+  await docUser.set(json);
+}
+
+class User {
+  String id;
+  final String name;
+  final String from;
+  final String to;
+  final String dose;
+  final List<dynamic> diseases;
+  //final List StrindID;
+
+  User({
+    this.id = '',
+    required this.name,
+    required this.from,
+    required this.to,
+    required this.dose,
+    required this.diseases,
+    //required this.StrindID,
+  });
+
+  Map<String, dynamic> toJson() => {
+        'id': id,
+        'name': name,
+        'from': from,
+        'to': to,
+        'diseases': diseases,
+        //'StrindID': StrindID,
+      };
 }

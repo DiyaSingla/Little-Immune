@@ -1,3 +1,3 @@
 class APIKey {
-  static const apiKey = "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";
+  static const first = "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";
 }

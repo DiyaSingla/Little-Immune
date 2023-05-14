@@ -51,12 +51,14 @@ class notificationText extends State<NotificationFormat> {
         }
       }
       // ignore: prefer_interpolation_to_compose_strings
-      message = vaccine +
-          ' Vaccine due for ' +
-          kid +
-          " in " +
-          min.toString() +
-          " days!";
+      message = (kid.isEmpty)
+          ? "No due vaccines!"
+          : vaccine +
+              ' Vaccine due for ' +
+              kid +
+              " in " +
+              min.toString() +
+              " days!";
     }
     return null;
   }

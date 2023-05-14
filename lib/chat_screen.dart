@@ -51,11 +51,13 @@ class _ChatBotScreenState extends State<ChatBotScreen> {
       "max_tokens": 500,
     };
 
+    final String key = APIKey.first;
+
     final response = await http.post(
       uri,
       headers: {
         "Content-Type": "application/json",
-        "Authorization": "Bearer ${APIKey.apiKey}",
+        "Authorization": "Bearer ${Key}",
       },
       body: json.encode(body),
     );
