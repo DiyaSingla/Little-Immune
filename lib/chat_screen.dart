@@ -45,7 +45,7 @@ class _ChatBotScreenState extends State<ChatBotScreen> {
 
   Future<String> sendMessageToBot(String message) async {
     Uri uri =
-        Uri.parse("http://127.0.0.1:5000/api"); // Update the API endpoint URL
+        Uri.parse("http://127.0.0.1:5000/api?input"); // Update the API endpoint URL
 
     final response = await http.get(uri, headers: {
       'input': message,
@@ -63,7 +63,7 @@ class _ChatBotScreenState extends State<ChatBotScreen> {
 
   Widget _buildMessage(Message message) {
     return Container(
-      margin: EdgeInsets.symmetric(vertical: 10.0),
+      margin: const EdgeInsets.symmetric(vertical: 10.0),
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 5),
         child: Column(
@@ -72,12 +72,12 @@ class _ChatBotScreenState extends State<ChatBotScreen> {
           children: <Widget>[
             Text(
               message.isMe ? 'You' : 'Bot',
-              style: TextStyle(fontWeight: FontWeight.bold),
+              style: const TextStyle(fontWeight: FontWeight.bold),
             ),
             Container(
               decoration: BoxDecoration(
                 color: message.isMe
-                    ? Color.fromARGB(255, 166, 228, 243)
+                    ? const Color.fromARGB(255, 166, 228, 243)
                     : Colors.pink[100],
                 borderRadius: BorderRadius.circular(8.0),
               ),
@@ -119,7 +119,7 @@ class _ChatBotScreenState extends State<ChatBotScreen> {
               },
             ),
           ),
-          Divider(height: 1.0),
+          const Divider(height: 1.0),
           Container(
             decoration: BoxDecoration(color: Theme.of(context).cardColor),
             child: Row(
@@ -127,7 +127,7 @@ class _ChatBotScreenState extends State<ChatBotScreen> {
                 Expanded(
                   child: TextField(
                     controller: _textEditingController,
-                    decoration: InputDecoration(
+                    decoration: const InputDecoration(
                       contentPadding: EdgeInsets.all(10.0),
                       hintText: 'Type a message...',
                       border: InputBorder.none,

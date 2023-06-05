@@ -11,7 +11,7 @@ def load_responses(file):
         return json.load(response_file)
 
 # Store JSON response data
-response_data = load_responses("C://Users//Diya Singla//Desktop//Diya//Flutter apps//little_immune//lib//responses.json")
+response_data = load_responses("lib/responses.json")
 
 # Convenience tuple for returning responses
 Response = namedtuple('Response', 'bot_response response_type')
