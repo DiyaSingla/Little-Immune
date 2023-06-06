@@ -76,7 +76,7 @@ class _VaccineFormState extends State<VaccineForm> {
                 child: TextFormField(
                   controller: _From,
                   decoration: InputDecoration(
-                    labelText: 'Dose From',
+                    labelText: 'Dose Duration Start',
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(10.0),
                     ),
@@ -93,7 +93,7 @@ class _VaccineFormState extends State<VaccineForm> {
                 child: TextFormField(
                   controller: _To,
                   decoration: InputDecoration(
-                    labelText: 'Dose To',
+                    labelText: 'Dose Duration End',
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(10.0),
                     ),
@@ -164,36 +164,51 @@ class _VaccineFormState extends State<VaccineForm> {
 
 Future createUser(User user) async {
   final docUser = FirebaseFirestore.instance.collection('Vaccines').doc();
-  user.id = docUser.id;
+  String id = docUser.id;
+  
+  List<String> StrindIDnew = [];
+  String res = '';
+  for (int i = 0; i <  user.name.length; i++) {
+    res = res + user.name[i];
+    StrindIDnew.add(res);
+  }
+  user.StrindID = StrindIDnew;
+
   final json = user.toJson();
   await docUser.set(json);
 }
 
 class User {
-  String id;
-  final String name;
-  final String from;
-  final String to;
-  final String dose;
-  final List<dynamic> diseases;
-  //final List StrindID;
+  String name;
+   String from;
+   String to;
+   String dose;
+  List<dynamic> diseases;
+  List<String>? StrindID;
 
   User({
-    this.id = '',
     required this.name,
     required this.from,
     required this.to,
     required this.dose,
     required this.diseases,
-    //required this.StrindID,
+    this.StrindID,
   });
 
   Map<String, dynamic> toJson() => {
-        'id': id,
         'name': name,
         'from': from,
         'to': to,
         'diseases': diseases,
-        //'StrindID': StrindID,
+        'StrindID': StrindID,
       };
+
+  static User fromJson(Map<String, dynamic> json) => User(
+    name: json['name'],
+    from: json['from'],
+    to: json['to'],
+    dose: json['dose'],
+    diseases: json['diseases'],
+    StrindID:json['StrindID']
+  );
 }

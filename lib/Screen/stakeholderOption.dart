@@ -1,6 +1,9 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:little_immune/Screen/stakeholder1page.dart';
 import 'package:little_immune/Screen/stakeholderUpdate.dart';
+
+import '../firebase_options.dart';
 
 class VaccineOption extends StatelessWidget {
   @override
@@ -53,7 +56,9 @@ class VaccineOption extends StatelessWidget {
   }
 }
 
-void main() {
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   runApp(MaterialApp(
     debugShowCheckedModeBanner: false,
     home: VaccineOption(),
