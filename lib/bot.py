@@ -18,11 +18,10 @@ Response = namedtuple('Response', 'bot_response response_type')
 
 # Create the functionality that you want.
 def generate_response(user_input: str) -> Response:
-    lc_input = user_input.lower()
 
     for response in response_data:
-        if lc_input in response['user_input']:
-            return Response(response['bot_response'], response['response_type'])
+        if user_input in response.get('patterns', []):
+            return Response(response['responses'][0], response.get('intent', "unknown"))
 
     return Response("Could not understand.", "unknown")
 
@@ -40,11 +39,10 @@ def api():
     response = generate_response(user_input)
 
     json_response = {
-    'input': user_input,
-    'response': response.bot_response,
-    'response_type': response.response_type
-}
-
+        'input': user_input,
+        'response': response.bot_response,
+        'response_type': response.response_type
+    }
 
     return jsonify(json_response)
 

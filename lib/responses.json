@@ -1,38 +1,122 @@
 [
-    {
-      "response_type": "greeting",
-      "user_input": ["hello", "hi", "hey"],
-      "bot_response": "Hey there!",
-      "required_words": []
-    },
-    {
-      "response_type": "greeting",
-      "user_input": ["see you", "goodbye", "bye"],
-      "bot_response": "See you later!",
-      "required_words": []
-    },
-    {
-      "response_type": "greeting",
-      "user_input": ["nice", "to", "meet", "you"],
-      "bot_response": "The pleasure is all mine!",
-      "required_words": ["nice", "meet", "you"]
-    },
-    {
-      "response_type": "question",
-      "user_input": ["how", "to", "learn", "code", "coding", "apps"],
-      "bot_response": "Start by typing: 'How to learn coding' on Google.",
-      "required_words": ["learn", "code"]
-    },
-    {
-      "response_type": "question",
-      "user_input": ["refund", "how", "can", "I", "get"],
-      "bot_response": "We don't offer refunds for free education.",
-      "required_words": ["refund", "i"]
-    },
-    {
-      "response_type": "question",
-      "user_input": ["how", "are", "you"],
-      "bot_response": "I'm great! Thanks for asking.",
-      "required_words": ["how", "are", "you"]
-    }
-  ]
+  {
+    "intent": "vaccine requirements",
+    "patterns": ["Which vaccines are mandatory for my child to take?", "mandatory vaccines for school"],
+    "responses": ["The vaccine requirements for school enrollment vary by country and state. Generally, vaccines for diseases like measles, mumps, rubella, diphtheria, tetanus, and pertussis (DTaP), polio, and varicella (chickenpox) are mandatory. It's best to check with your local education department for the specific requirements."]
+  },
+  {
+    "intent": "missed dose",
+    "patterns": ["What if my child missed a vaccine dose?", "How will I know if my child has missed a vaccine?"],
+    "responses": ["You can see the list of missed vaccines of all the children in the 'Missed vaccine Section' of the app. '\n' If your child missed a vaccine dose, it's important to consult with your healthcare provider. They can guide you on the appropriate steps to take and whether a catch-up dose is necessary."]
+  },
+  {
+    "intent": "vaccine safety",
+    "patterns": ["Are vaccines safe for children?", "What safety measures are in place for vaccines?"],
+    "responses": ["Vaccines undergo rigorous testing and monitoring for safety and effectiveness. They are approved by regulatory authorities before being made available to the public. Vaccine safety is continually monitored through surveillance systems. Serious side effects are extremely rare, and the benefits of vaccines far outweigh the risks."]
+  },
+  {
+    "intent": "vaccine duration",
+    "patterns": ["How long does a vaccine provide protection?", "Do vaccines provide lifelong immunity?"],
+    "responses": ["The duration of protection provided by vaccines can vary. Some vaccines offer lifelong immunity, while others require booster doses to maintain immunity. Your healthcare provider can provide specific information about the duration of protection for each vaccine."]
+  },
+  {
+    "intent": "vaccine myths",
+    "patterns": ["Are vaccines linked to autism?", "Do vaccines weaken the immune system?"],
+    "responses": ["No, vaccines do not cause autism. Extensive scientific research has shown no evidence of a link between vaccines and autism. Vaccines actually strengthen the immune system by teaching it how to recognize and fight specific diseases."]
+  },
+  {
+    "intent": "parent queries",
+    "patterns": ["Can parents get vaccinated along with their children?", "What vaccines do parents need?"],
+    "responses": ["Yes, parents can receive vaccines to protect themselves and prevent the spread of diseases to their children. Vaccines like influenza, pertussis (whooping cough), and others are recommended for parents. '\n' However, our app is restricted to Child Vaccines only"]
+  },
+  {
+    "intent": "vaccine side effects",
+    "patterns": ["What are the common side effects of vaccines?", "Are there any risks or side effects associated with vaccines?"],
+    "responses": ["Common side effects of vaccines include soreness or redness at the injection site, low-grade fever, or mild body aches. Serious side effects are rare. It's important to discuss any concerns with your healthcare provider."]
+  },
+  {
+    "intent": "vaccine schedule",
+    "patterns": ["What is the recommended vaccine schedule for children?", "When should my child receive specific vaccines?"],
+    "responses": ["On opening the app, you can see the nearest due vaccine of your child. It appears at the top in a green bar. Also, Your healthcare provider can provide you with the specific vaccine schedule and ensure your child receives vaccines at the appropriate times."]
+  },
+  {
+    "intent": "vaccine information",
+    "patterns": ["What is DPT Vaccine for?", "Why does my child need the DPT vaccine?"],
+    "responses": ["The DPT vaccine is a combination vaccine that protects against three infectious diseases: diphtheria, pertussis (whooping cough), and tetanus. It helps build immunity and prevents the spread of the disease. It's an important vaccine to ensure your child's health and well-being. '\n' You can find the relevat information of all the vaccines in the 'Vaccine List' section of the app."]
+  },
+  {
+    "intent": "vaccine missed reminder",
+    "patterns": ["How can I set up reminders for missed vaccine doses?", "Can I receive reminders if my child misses a vaccine?"],
+    "responses": ["In our vaccine reminder app, The app will send you notifications and help you keep track of your child's vaccination schedule. It's a helpful feature to ensure your child receives all the necessary vaccines."]
+  },
+  {
+    "intent": "vaccine storage",
+    "patterns": ["How should vaccines be stored?", "What are the storage requirements for vaccines?"],
+    "responses": ["Vaccines have specific storage requirements to maintain their effectiveness. They need to be stored at the recommended temperature range, usually between 2°C and 8°C (36°F and 46°F). It's important to store vaccines in a dedicated refrigerator and monitor the temperature regularly."]
+  },
+  {
+    "intent": "vaccine allergies",
+    "patterns": ["What if my child has allergies? Can they still get vaccinated?", "Are there any contraindications for vaccines in children with allergies?"],
+    "responses": ["In most cases, children with allergies can still receive vaccines. However, it's essential to inform your healthcare provider about any allergies your child has. They will assess the situation and determine the appropriate course of action, such as using alternative vaccine formulations if necessary."]
+  },
+  {
+    "intent": "vaccine efficiency",
+    "patterns": ["How effective are vaccines?", "Do vaccines guarantee 100% protection against diseases?"],
+    "responses": ["Vaccines are highly effective in preventing diseases and reducing the severity of illness. However, no vaccine provides 100% protection for every individual. The effectiveness may vary depending on factors such as the vaccine type, individual immune response, and circulating strains of the disease."]
+  },
+  {
+    "intent": "vaccine concerns",
+    "patterns": ["I have concerns about vaccinating my child. What should I do?", "How can I address my vaccine-related concerns?"],
+    "responses": ["It's normal to have questions and concerns about vaccines. The best approach is to discuss your concerns with a healthcare professional. They can provide accurate information, address your specific concerns, and help you make informed decisions about your child's vaccinations."]
+  },
+  {
+    "intent": ["safety","secure"],
+    "patterns": ["Why should I add my child information here?", "Is it safe to add my child info here?"],
+    "responses": ["The child information like name, date of birth and gender is important for scheduling vaccines and maintaining the rcord for missed, due and taken vaccines. '\n' We assure you that your child info is safe and secure with our app."]
+  },
+  {
+    "intent": ["Other app","special","Little Immune"],
+    "patterns": ["What is so special in you we choose you?", "There are other app why you?", "Why Little Immune?"],
+    "responses": ["That’s a very valid question to ask. Little Immune stands out with its comprehensive features, user-friendly interface, data security measures, and reliable performance. With a range of functionalities like reminders and an up-to-date vaccine record, it simplifies managing your child's vaccinations. Trust Little Immune for a seamless and secure vaccination experience."]
+  },
+  {
+    "intent": ["crash","stop working"],
+    "patterns": ["Is there surety that your app does not crash?", "What if it crashes or stops working?"],
+    "responses": ["While no app is immune to occasional crashes, we assure you that we prioritize stability and continuous improvements. In the rare event of a crash, our dedicated team promptly addresses issues to ensure uninterrupted functionality for a smooth user experience."]
+  },
+  {
+    "intent": ["wow","nice","Amazing"],
+    "patterns": ["Very nice UI", "Backend is working so amazing", "Nice app"],
+    "responses": ["Thanks to the amazing developers. They will be glad to know your feedback!"]
+  },
+  {
+    "intent": "greeting",
+    "patterns": ["hi", "Hello", "Hey"],
+    "responses": ["Hello! How can I assist you today?"]
+  },
+  {
+    "intent": "record vaccine",
+    "patterns": ["How can I record my child's vaccine history?", "Can I add a vaccine my child has already received to their history?"],
+    "responses": ["Yes, you can add a vaccine your child has already received to their vaccine history in the app. Simply go to the 'Missed Vaccine' section and tap on the check box, the vaccine list will be updated. And the Vaccine will be added to the 'Vaccine Taken' list."]
+  },
+  {
+    "intent": "vaccine location",
+    "patterns": ["Where can I get my child vaccinated?", "Are there any vaccination clinics near me?"],
+    "responses": ["You can search for vaccination clinics near you in the app by going to the 'Book Appointment' section. However this feature is temporarily down."]
+  },
+  {
+    "intent": "goodbye",
+    "patterns": ["Bye", "Goodbye", "See you later"],
+    "responses": ["Goodbye! Have a great day."]
+  },
+  {
+    "intent": "vaccine multiple",
+    "patterns": ["Can my child get multiple vaccines at once?"],
+    "responses": ["Yes, it is safe for children to receive multiple vaccines at once. In fact, the recommended vaccination schedule often includes multiple vaccines during a single visit."]
+  },
+  {
+    "intent": "not vaccinated",
+    "patterns": ["Are there any children who should not be vaccinated?"],
+    "responses":["Children with certain medical conditions, such as a weakened immune system, may not be able to receive certain vaccines. Your pediatrician can advise you on which vaccines are safe for your child."]
+  }
+]

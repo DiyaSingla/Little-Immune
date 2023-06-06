@@ -44,12 +44,8 @@ class _ChatBotScreenState extends State<ChatBotScreen> {
   }
 
   Future<String> sendMessageToBot(String message) async {
-    Uri uri =
-        Uri.parse("http://127.0.0.1:5000/api?input"); // Update the API endpoint URL
-
-    final response = await http.get(uri, headers: {
-      'input': message,
-    });
+    String apiUrl = 'http://127.0.0.1:5000/api?input=$message';
+    final response = await http.get(Uri.parse(apiUrl));
 
     if (response.statusCode == 200) {
       Map<String, dynamic> parsedResponse = json.decode(response.body);
