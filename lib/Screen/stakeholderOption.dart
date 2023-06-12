@@ -17,37 +17,67 @@ class VaccineOption extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Text("To Add New Vaccine"),
-            SizedBox(
-              height: 20,
+            Flexible(
+              child: Image.asset(
+                'images/vaccine.png',
+                height: 150,
+              ),
             ),
-            MaterialButton(
-              color: const Color.fromARGB(255, 250, 97, 148),
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => VaccineForm()),
-                );
-              },
-              child: Text('Vaccine Add'),
+            // Replace with your image path
+            Flexible(
+              child: SizedBox(
+                height: 20,
+              ),
             ),
-            SizedBox(
-              height: 30,
+            Flexible(
+              child: Text("To Add New Vaccine"),
             ),
-            Text("To Update Vaccine Information"),
-            SizedBox(
-              height: 20,
+            Flexible(
+              child: SizedBox(
+                height: 20,
+              ),
             ),
-            MaterialButton(
-              color: const Color.fromARGB(255, 250, 97, 148),
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) => VaccineUpdateScreen()),
-                );
-              },
-              child: Text('Vaccine Update'),
+
+            Flexible(
+              child: MaterialButton(
+                shape: CircleBorder(eccentricity: 1),
+                color: Color.fromARGB(255, 240, 250, 97),
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => VaccineForm()),
+                  );
+                },
+                child: Text('Vaccine Add'),
+              ),
+            ),
+            Flexible(
+              child: SizedBox(
+                height: 20,
+              ),
+            ),
+            Flexible(
+              child: Text("To Update Vaccine Information"),
+            ),
+
+            Flexible(
+              child: SizedBox(
+                height: 20,
+              ),
+            ),
+            Flexible(
+              child: MaterialButton(
+                shape: CircleBorder(eccentricity: 1),
+                color: Color.fromARGB(255, 92, 68, 248),
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => VaccineUpdateScreen()),
+                  );
+                },
+                child: Text('Vaccine Update'),
+              ),
             ),
           ],
         ),
