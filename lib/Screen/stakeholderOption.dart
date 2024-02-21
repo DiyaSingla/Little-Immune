@@ -11,7 +11,7 @@ class VaccineOption extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: const Color.fromARGB(255, 250, 97, 148),
-        title: Text('Vaccine Editing Option'),
+        title: Text('Administrative Options'),
       ),
       body: Center(
         child: Column(
@@ -20,7 +20,6 @@ class VaccineOption extends StatelessWidget {
             Flexible(
               child: Image.asset(
                 'images/vaccine.png',
-                height: 150,
               ),
             ),
             // Replace with your image path
